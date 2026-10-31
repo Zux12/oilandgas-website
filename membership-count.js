@@ -42,7 +42,7 @@ if (membershipForm) {
       result.textContent = 'Thank you. New applications go to the membership team for review.';
       membershipForm.reset();
     } catch {
-      result.textContent = 'We could not confirm receipt. Please retry, or email the membership team below.';
+      result.textContent = 'We could not confirm receipt. Please retry, or use the contact form below.';
     } finally {
       button.disabled = false;
     }
