@@ -108,10 +108,10 @@ function refresh() {
     papersLink.id = 'topic-publications';
     document.getElementById('all-articles').after(' ', papersLink);
   }
-  papersLink.hidden = !filtered;
+  papersLink.hidden = false;
   papersLink.href = document.getElementById('all-publications').href;
   return Promise.all([
-    loadSection(filtered ? 'insights' : 'articles', 6, 'article-cards', 'article-status', version),
+    loadSection('insights', 6, 'article-cards', 'article-status', version),
     loadSection('publications', 3, 'publication-cards', 'publication-status', version)
   ]);
 }
