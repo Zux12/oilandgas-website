@@ -1,3 +1,99 @@
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
 'use strict';
 const contentApi = 'https://mterm2026-559f9bf571b5.herokuapp.com/api/oilandgas/editor/';
 const browseMode = document.body.hasAttribute('data-browse');
@@ -24,7 +120,7 @@ function node(tag, text, className) {
   if (className) element.className = className;
   return element;
 }
-function card(item, paperLayout) {
+function card(item, paperLayout, showKind = false) {
   const article = document.createElement('article');
   article.className = paperLayout ? 'paper' : 'card';
   const content = document.createElement('div');
@@ -32,7 +128,8 @@ function card(item, paperLayout) {
   const link = node('a', item.title);
   link.href = readingLink(item);
   heading.append(link);
-  content.append(node('span', item.topic, 'eyebrow'), heading,
+  const label = showKind ? item.topic + ' · ' + (item.kind === 'publications' ? 'Shared paper' : 'Article') : item.topic;
+  content.append(node('span', label, 'eyebrow'), heading,
     node('p', excerpt(item.summary)), node('small', item.byline, 'meta'));
   if (paperLayout) article.append(node('span', '▤', 'paper-icon'));
   article.append(content);
@@ -59,9 +156,20 @@ async function loadSection(entryKind, limit, targetId, statusId, version) {
   target.replaceChildren();
   status.textContent = 'Loading…';
   try {
-    const data = await fetchEntries(entryKind, limit);
+    const mixed = entryKind === 'insights';
+    let data;
+    if (mixed) {
+      const [articles, papers] = await Promise.all([
+        fetchEntries('articles', limit), fetchEntries('publications', limit)
+      ]);
+      const items = articles.items.concat(papers.items);
+      items.sort((a,b) => new Date(b.publishedAt) - new Date(a.publishedAt) || a.reference.localeCompare(b.reference));
+      data = {items: items.slice(0, limit)};
+    } else {
+      data = await fetchEntries(entryKind, limit);
+    }
     if (version !== generation) return;
-    target.replaceChildren(...data.items.map(item => card(item, !browseMode && entryKind === 'publications')));
+    target.replaceChildren(...data.items.map(item => card(item, !browseMode && entryKind === 'publications', mixed)));
     status.textContent = data.items.length ? '' : 'No published ' + entryKind + ' match this selection.';
     if (browseMode) {
       document.getElementById('previous').disabled = page === 0;
@@ -82,94 +190,3 @@ function refresh() {
       kind, topic: selectedTopic, q: search.value, page: String(page)
     }));
     return loadSection(kind, 12, 'browse-cards', 'browse-status', version);
-  }
-  for (const entryKind of ['articles', 'publications']) {
-    document.getElementById('all-' + entryKind).href = 'browse.html?' +
-      new URLSearchParams({kind: entryKind, topic: selectedTopic, q: search.value});
-  }
-  return Promise.all([
-    loadSection('articles', 6, 'article-cards', 'article-status', version),
-    loadSection('publications', 3, 'publication-cards', 'publication-status', version)
-  ]);
-}
-search.maxLength = 120;
-search.addEventListener('input', () => {
-  clearTimeout(debounce);
-  ++generation;
-  page = 0;
-  debounce = setTimeout(refresh, 250);
-});
-if (browseMode) {
-  search.value = initial.get('q') || '';
-  const select = document.getElementById('topic');
-  if (![...select.options].some(option => option.value === selectedTopic)) selectedTopic = 'All';
-  select.value = selectedTopic;
-  document.getElementById('browse-title').textContent = kind === 'articles' ? 'Articles' : 'Publications';
-  select.onchange = () => {
-    clearTimeout(debounce);
-    selectedTopic = select.value;
-    page = 0;
-    refresh();
-  };
-  for (const [id, delta] of [['previous', -1], ['next', 1]]) {
-    document.getElementById(id).onclick = () => {
-      page += delta;
-      refresh();
-      document.getElementById('browse-title').scrollIntoView();
-    };
-  }
-} else {
-  document.querySelectorAll('[data-filter]').forEach(button => {
-    button.onclick = () => {
-      clearTimeout(debounce);
-      selectedTopic = button.dataset.filter;
-      document.querySelectorAll('[data-filter]').forEach(other => {
-        other.classList.toggle('active', other === button);
-        other.setAttribute('aria-pressed', String(other === button));
-      });
-      refresh();
-    };
-  });
-  loadHighlights();
-}
-async function loadHighlights() {
-  try {
-    const response = await fetch(contentApi + 'highlights');
-    if (!response.ok) return;
-    const highlights = await response.json();
-    const targets = {
-      lead: document.querySelector('.lead'),
-      story1: document.querySelectorAll('.side-story')[0],
-      story2: document.querySelectorAll('.side-story')[1]
-    };
-    Object.values(targets).forEach(target => {target.hidden=true;});
-    for (const {slot, image, entry} of highlights) {
-      const target = targets[slot];
-      if (!target) continue;
-      target.hidden=false;
-      const heading = target.querySelector('h1,h2');
-      const link = node('a', entry.title);
-      link.href = entry.kind==='external' ? entry.source : readingLink(entry);
-      heading.replaceChildren(link);
-      target.querySelector('p').textContent = excerpt(entry.summary);
-      target.querySelector('.tag,.eyebrow').textContent = entry.topic;
-      target.querySelector('.meta').textContent = entry.kind==='external' ? entry.byline+' · '+new Date(entry.publishedAt).toLocaleDateString('en-GB') : entry.byline;
-      const photo = target.querySelector('img');
-      if (photo && image) {
-        photo.src = image;
-        photo.alt = entry.title;
-      }
-      target.onclick = event => {
-        if (!event.target.closest('a')) location.href = link.href;
-      };
-      target.onkeydown = event => {
-        if (event.key === 'Enter' && event.target === target) location.href = link.href;
-      };
-    }
-    document.querySelector('.featured').hidden=!highlights.length;
-    document.querySelector('.intro').hidden=!highlights.length;
-  } catch {
-    // Display the other homepage sections if highlights cannot be loaded.
-  }
-}
-refresh();
