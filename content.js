@@ -142,16 +142,18 @@ async function loadHighlights() {
       story1: document.querySelectorAll('.side-story')[0],
       story2: document.querySelectorAll('.side-story')[1]
     };
+    Object.values(targets).forEach(target => {target.hidden=true;});
     for (const {slot, image, entry} of highlights) {
       const target = targets[slot];
       if (!target) continue;
+      target.hidden=false;
       const heading = target.querySelector('h1,h2');
       const link = node('a', entry.title);
-      link.href = readingLink(entry);
+      link.href = entry.kind==='external' ? entry.source : readingLink(entry);
       heading.replaceChildren(link);
       target.querySelector('p').textContent = excerpt(entry.summary);
       target.querySelector('.tag,.eyebrow').textContent = entry.topic;
-      target.querySelector('.meta').textContent = entry.byline;
+      target.querySelector('.meta').textContent = entry.kind==='external' ? entry.byline+' · '+new Date(entry.publishedAt).toLocaleDateString('en-GB') : entry.byline;
       const photo = target.querySelector('img');
       if (photo && image) {
         photo.src = image;
@@ -164,8 +166,10 @@ async function loadHighlights() {
         if (event.key === 'Enter' && event.target === target) location.href = link.href;
       };
     }
+    document.querySelector('.featured').hidden=!highlights.length;
+    document.querySelector('.intro').hidden=!highlights.length;
   } catch {
-    // The existing labelled sample highlights remain available during an outage.
+    // Display the other homepage sections if highlights cannot be loaded.
   }
 }
 refresh();
