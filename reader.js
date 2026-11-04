@@ -4,7 +4,8 @@ function renderEntry(target,entry){
     const node=document.createElement(tag);node.textContent=value;target.append(node);
   }
   line('small',entry.kind==='articles'?'ARTICLE':'RESEARCH PUBLICATION');
-  document.title = entry.title + ' | Oil & Gas';line('h1',entry.title);line('p',entry.byline);line('small',entry.topic);line('p',entry.summary);
+  document.title = entry.title + ' | Oil & Gas';if (entry.crossIndustry) line('small','Technology Across Industries');
+  line('h1',entry.title);line('p',entry.byline);line('small',entry.topic);line('p',entry.summary);
   if(entry.kind==='articles'){
     line('h3','Full article');
     if(entry.body){
