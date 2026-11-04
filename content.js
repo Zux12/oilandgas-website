@@ -16,7 +16,7 @@ function excerpt(value, length = 210) {
   return cut.slice(0, cut.lastIndexOf(' ') > 0 ? cut.lastIndexOf(' ') : length) + '…';
 }
 function readingLink(item) {
-  return contentApi + 'read.html?' + new URLSearchParams({kind: item.kind, ref: item.reference});
+  return 'read.html?' + new URLSearchParams({kind: item.kind, ref: item.reference});
 }
 function node(tag, text, className) {
   const element = document.createElement(tag);
