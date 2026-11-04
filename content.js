@@ -6,6 +6,8 @@ const initial = new URLSearchParams(location.search);
 const kind = initial.get('kind') === 'publications' ? 'publications' : 'articles';
 let selectedTopic = browseMode ? initial.get('topic') || 'All' : 'All';
 let page = browseMode ? Math.max(0, Number(initial.get('page')) || 0) : 0;
+const collectionName = 'Technology Across Industries';
+const collectionIntro = 'Explore how other industries approach engineering problems familiar to oil and gas professionals.';
 let generation = 0;
 let debounce;
 
@@ -33,7 +35,7 @@ function card(item, paperLayout, showKind = false) {
   link.href = readingLink(item);
   heading.append(link);
   const label = showKind ? item.topic + ' · ' + (item.kind === 'publications' ? 'Shared paper' : 'Article') : item.topic;
-  content.append(node('span', label, 'eyebrow'), heading,
+  content.append(node('span', item.crossIndustry ? label + ' · ' + collectionName : label, 'eyebrow'), heading,
     node('p', excerpt(item.summary)), node('small', item.byline, 'meta'));
   if (paperLayout) article.append(node('span', '▤', 'paper-icon'));
   article.append(content);
@@ -102,6 +104,9 @@ function refresh() {
   const filtered = selectedTopic !== 'All' || Boolean(search.value.trim());
   document.querySelector('#latest h2').textContent = filtered
     ? (selectedTopic === 'All' ? 'Search results' : selectedTopic + ' insights') : 'Latest contributions';
+  const collectionNote = document.getElementById('collection-note');
+  if (collectionNote) collectionNote.hidden = selectedTopic !== collectionName;
+  if (selectedTopic === collectionName) document.querySelector('#latest h2').textContent = collectionName;
   let papersLink = document.getElementById('topic-publications');
   if (!papersLink) {
     papersLink = document.getElementById('all-publications').cloneNode(true);
@@ -125,6 +130,7 @@ search.addEventListener('input', () => {
 if (browseMode) {
   search.value = initial.get('q') || '';
   const select = document.getElementById('topic');
+  select.add(new Option(collectionName, collectionName));
   if (![...select.options].some(option => option.value === selectedTopic)) selectedTopic = 'All';
   select.value = selectedTopic;
   document.getElementById('browse-title').textContent = kind === 'articles' ? 'Articles' : 'Publications';
@@ -142,6 +148,18 @@ if (browseMode) {
     };
   }
 } else {
+  const lastTopic = Array.from(document.querySelectorAll('[data-filter]')).pop();
+  if (lastTopic) {
+    const button = node('button', collectionName, 'chip');
+    button.type = 'button';
+    button.dataset.filter = collectionName;
+    button.setAttribute('aria-pressed','false');
+    lastTopic.after(button);
+    const note = node('p', collectionIntro);
+    note.id = 'collection-note';
+    note.hidden = true;
+    document.querySelector('#latest .section-head').after(note);
+  }
   document.querySelectorAll('[data-filter]').forEach(button => {
     button.onclick = () => {
       clearTimeout(debounce);
@@ -175,7 +193,7 @@ async function loadHighlights() {
       link.href = entry.kind==='external' ? entry.source : readingLink(entry);
       heading.replaceChildren(link);
       target.querySelector('p').textContent = excerpt(entry.summary);
-      target.querySelector('.tag,.eyebrow').textContent = entry.topic;
+      target.querySelector('.tag,.eyebrow').textContent = entry.crossIndustry ? entry.topic + ' · ' + collectionName : entry.topic;
       target.querySelector('.meta').textContent = entry.kind==='external' ? entry.byline+' · '+new Date(entry.publishedAt).toLocaleDateString('en-GB') : entry.byline;
       const photo = target.querySelector('img');
       if (photo && image) {
