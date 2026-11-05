@@ -135,7 +135,18 @@ search.addEventListener('input', () => {
   clearTimeout(debounce);
   ++generation;
   page = 0;
-  debounce = setTimeout(refresh, 250);
+  debounce = setTimeout(() => {
+  refresh();
+
+  const results = document.getElementById(
+    browseMode ? 'browse-title' : 'latest'
+  );
+
+  results?.scrollIntoView({
+    behavior: 'smooth',
+    block: 'start'
+  });
+}, 500);
 });
 if (browseMode) {
   search.value = initial.get('q') || '';
