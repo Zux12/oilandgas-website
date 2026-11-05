@@ -1,49 +1,68 @@
-const topicKey = value => String(value || '').toLowerCase()
-  .replace(/\band\b|&/g, ' ').replace(/[^a-z0-9]+/g, ' ').trim();
+const pathFor = id => new URL('./featured-images/' + id + '.jpg', import.meta.url).href;
+const cover = { id: 'desk', alt: 'Research papers on an editorial desk' };
+const normalize = text => String(text || '').toLowerCase().replace(/&/g, ' and ')
+  .replace(/[^a-z0-9]+/g, ' ').trim();
+const forms = text => normalize(text).split(' ').map(word =>
+  word.length > 4 && word.endsWith('s') && !word.endsWith('ss') ? word.slice(0, -1) : word).join(' ');
 
-export function rankPhotos(photos, vectors, topic) {
-  const [story, ...candidates] = vectors;
-  const ranked = photos.map((photo, index) => {
-    const similarity = candidates[index].reduce((sum, n, i) => sum + n * story[i], 0);
-    const sameTopic = photo.topics.some(label => topicKey(label) === topicKey(topic));
-    return { photo, similarity, score: similarity + (sameTopic ? 0.05 : 0) };
-  }).filter(item => item.similarity >= 0.30).sort((a, b) => b.score - a.score);
-  return ranked[0]?.photo;
+function tieBreaker(seed) {
+  let hash = 2166136261;
+  for (const char of seed) hash = Math.imul(hash ^ char.charCodeAt(0), 16777619);
+  return hash >>> 0;
 }
 
-async function choosePhoto(photos, entry) {
-  const { pipeline, env } = await import('https://cdn.jsdelivr.net/npm/@xenova/transformers@2.17.2/dist/transformers.min.js');
-  env.allowLocalModels = false;
-  env.backends.onnx.wasm.numThreads = 1;
-  const encode = await pipeline('feature-extraction', 'Xenova/all-MiniLM-L6-v2');
-  const texts = [
-    [entry.title, entry.summary, entry.topic].filter(Boolean).join('. '),
-    ...photos.map(photo => [photo.alt, photo.description || photo.reason].join('. '))
-  ];
-  const embeddings = await encode(texts, { pooling: 'mean', normalize: true });
-  return rankPhotos(photos, embeddings.tolist(), entry.topic);
+export function photoChoices(photos, entry) {
+  const title = ' ' + forms(entry.title) + ' ';
+  const summary = ' ' + forms(entry.summary) + ' ';
+  const topic = normalize(entry.topic);
+  const tagged = photos.map(photo => {
+    let score = 0;
+    for (const tag of photo.tags) {
+      const term = forms(tag);
+      const weight = Math.min(3, term.split(' ').length);
+      if (title.includes(' ' + term + ' ')) score += 4 * weight;
+      else if (summary.includes(' ' + term + ' ')) score += weight;
+    }
+    if (score && photo.topics.some(t => normalize(t) === topic)) score += 1;
+    return {photo, score, tie: tieBreaker((entry.reference || title) + '/' + photo.id)};
+  });
+  tagged.sort((a,b) => b.score - a.score || a.tie - b.tie);
+  const specific = tagged.find(row => row.score > 0)?.photo;
+  const standard = photos.find(photo => photo.defaults.some(t => normalize(t) === topic));
+  return [...new Map([specific, standard, cover].filter(Boolean).map(p => [p.id,p])).values()];
 }
-export async function fillFeaturedPhoto(img, entry) {
+
+export async function fillFeaturedPhoto(img, entry, suppliedImage = '') {
   const box = img.parentElement;
-  const response = await fetch(new URL('./featured-photos.json', import.meta.url));
-  if (!response.ok) return;
-  const match = await choosePhoto(await response.json(), entry);
-  if (!match) return;
-  const candidate = new Image();
-  candidate.src = match.image;
-  await candidate.decode();
-  const credit = document.createElement('small');
-  credit.className = 'meta';
-  const source = document.createElement('a');
-  source.href = match.source;
-  source.textContent = match.photographer + ' / Unsplash';
-  credit.append('Illustrative photo · ', source);
-  img.onerror = () => {
-    box.hidden = true;
-    credit.remove();
-  };
-  img.alt = match.alt;
-  img.src = match.image;
-  box.hidden = false;
-  box.after(credit);
+  const credit = box.nextElementSibling;
+  if (credit?.hasAttribute('data-featured-photo-credit')) credit.remove();
+  img.onerror = null;
+  let choices = [];
+  if (/^https:\/\//i.test(suppliedImage)) {
+    choices.push({url:suppliedImage, alt:entry.title, supplied:true});
+  }
+  async function show(choice) {
+    const candidate = new Image();
+    candidate.src = choice.url || pathFor(choice.id);
+    try { await candidate.decode(); } catch { return false; }
+    img.src = candidate.src;
+    img.alt = choice.alt;
+    box.hidden = false;
+    if (!choice.supplied) {
+      const label = document.createElement('small');
+      label.className = 'meta';
+      label.dataset.featuredPhotoCredit = '';
+      label.textContent = 'AI-generated editorial illustration';
+      box.after(label);
+    }
+    return true;
+  }
+  if (choices.length && await show(choices[0])) return;
+  try {
+    const response = await fetch(new URL('./featured-photos.json', import.meta.url));
+    if (!response.ok) throw new Error('Photo list unavailable');
+    choices = photoChoices(await response.json(), entry);
+  } catch { choices = [cover]; }
+  for (const choice of choices) if (await show(choice)) return;
+  box.hidden = true;
 }
