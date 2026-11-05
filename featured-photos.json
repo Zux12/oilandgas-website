@@ -13,7 +13,12 @@
       "satellites",
       "remote sensing",
       "landsat"
-    ]
+    ],
+    "topics": [
+      "Measurement",
+      "Energy transition"
+    ],
+    "description": "Earth observation from orbit, remote mapping of emissions over large areas and satellite monitoring of oil-producing basins."
   },
   {
     "photographer": "Ricardo Gomez Angel",
@@ -29,7 +34,13 @@
       "piping",
       "valve",
       "valves"
-    ]
+    ],
+    "topics": [
+      "Instrumentation & Control",
+      "Reliability",
+      "Measurement"
+    ],
+    "description": "Industrial piping and flow control equipment. Monitoring mechanical valve condition, predicting actuator failures, transporting fluids and maintaining process pipework."
   },
   {
     "photographer": "Patrick Hendry",
@@ -45,6 +56,33 @@
       "petrochemical plant",
       "stack emissions",
       "flue gas"
-    ]
+    ],
+    "topics": [
+      "Energy transition"
+    ],
+    "description": "Refinery operations, industrial combustion, stack emissions and pollution from processing facilities."
+  },
+  {
+    "photographer": "Lightsaber Collection",
+    "searchPhrase": "optical laboratory module testing",
+    "reason": "Optical module testing illustrates the laboratory work involved in optical sensing.",
+    "alt": "Engineer testing an optical module in a laboratory",
+    "source": "https://unsplash.com/photos/TqbptCWbaJg",
+    "image": "https://images.unsplash.com/photo-1682562031780-856bb01f08e8?auto=format&fit=crop&w=1400&q=85",
+    "keywords": [
+      "near infrared",
+      "infrared spectroscopy",
+      "optical gas sensing",
+      "ammonia detection",
+      "optical sensor",
+      "optical sensors",
+      "absorption spectroscopy"
+    ],
+    "topics": [
+      "Sensors",
+      "Instrumentation & Control",
+      "Measurement"
+    ],
+    "description": "Laboratory testing of optical modules. Using light absorption to detect trace gases, distinguish ammonia from interfering species, and measure concentration by near-infrared spectroscopy."
   }
 ]
