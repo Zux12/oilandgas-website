@@ -230,6 +230,13 @@ async function loadHighlights() {
           photo.alt = entry.title;
         }
       }
+
+            if (slot === 'lead' && photo && !String(image || '').trim()) {
+        import('./featured-photo.mjs')
+          .then(module => module.fillFeaturedPhoto(photo, entry))
+          .catch(() => { /* Keep the text layout if the photo cannot load. */ });
+      }
+      
       target.onclick = event => {
         if (!event.target.closest('a')) location.href = link.href;
       };
