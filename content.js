@@ -5,7 +5,7 @@ const search = document.getElementById('search');
 const initial = new URLSearchParams(location.search);
 const kind = initial.get('kind') === 'publications' ? 'publications' : 'articles';
 let selectedTopic = browseMode ? initial.get('topic') || 'All' : 'All';
-let page = browseMode ? Math.max(0, Number(initial.get('page')) || 0) : 0;
+let page = browseMode ? Math.min(100000, Math.max(0, Math.floor(Number(initial.get('page')) || 0))) : 0;
 const collectionName = 'Technology Across Industries';
 const collectionIntro = 'Explore how other industries approach engineering problems familiar to oil and gas professionals.';
 let generation = 0;
@@ -47,12 +47,18 @@ function card(item, paperLayout, showKind = false) {
   }
   return article;
 }
+async function fetchWithTimeout(url) {
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), 20000);
+  try { return await fetch(url, {signal:controller.signal}); }
+  finally { clearTimeout(timer); }
+}
 async function fetchEntries(entryKind, limit) {
   const params = new URLSearchParams({
     kind: entryKind, page: String(browseMode ? page : 0), limit: String(limit),
     topic: selectedTopic, q: search.value.trim()
   });
-  const response = await fetch(contentApi + 'browse?' + params);
+  const response = await fetchWithTimeout(contentApi + 'browse?' + params);
   if (!response.ok) throw new Error('Could not load entries.');
   return response.json();
 }
@@ -84,7 +90,11 @@ async function loadSection(entryKind, limit, targetId, statusId, version) {
     }
   } catch {
     if (version !== generation) return;
-    status.textContent = 'Entries are temporarily unavailable. Please refresh to try again.';
+    status.textContent = 'Entries are temporarily unavailable. ';
+    const retry = node('button', 'Try again', 'chip');
+    retry.type = 'button';
+    retry.onclick = refresh;
+    status.append(retry);
   }
 }
 function refresh() {
@@ -130,7 +140,9 @@ search.addEventListener('input', () => {
 if (browseMode) {
   search.value = initial.get('q') || '';
   const select = document.getElementById('topic');
-  select.add(new Option(collectionName, collectionName));
+  for (const topic of ['Sensors', collectionName]) {
+    if (![...select.options].some(option => option.value === topic)) select.add(new Option(topic, topic));
+  }
   if (![...select.options].some(option => option.value === selectedTopic)) selectedTopic = 'All';
   select.value = selectedTopic;
   document.getElementById('browse-title').textContent = kind === 'articles' ? 'Articles' : 'Publications';
@@ -142,7 +154,8 @@ if (browseMode) {
   };
   for (const [id, delta] of [['previous', -1], ['next', 1]]) {
     document.getElementById(id).onclick = () => {
-      page += delta;
+      clearTimeout(debounce);
+      page = Math.max(0, page + delta);
       refresh();
       document.getElementById('browse-title').scrollIntoView();
     };
@@ -161,6 +174,7 @@ if (browseMode) {
     document.querySelector('#latest .section-head').after(note);
   }
   document.querySelectorAll('[data-filter]').forEach(button => {
+    button.setAttribute('aria-pressed', String(button.dataset.filter === selectedTopic));
     button.onclick = () => {
       clearTimeout(debounce);
       selectedTopic = button.dataset.filter;
@@ -175,7 +189,7 @@ if (browseMode) {
 }
 async function loadHighlights() {
   try {
-    const response = await fetch(contentApi + 'highlights');
+    const response = await fetchWithTimeout(contentApi + 'highlights');
     if (!response.ok) return;
     const highlights = await response.json();
     const targets = {
@@ -196,9 +210,14 @@ async function loadHighlights() {
       target.querySelector('.tag,.eyebrow').textContent = entry.crossIndustry ? entry.topic + ' · ' + collectionName : entry.topic;
       target.querySelector('.meta').textContent = entry.kind==='external' ? entry.byline+' · '+new Date(entry.publishedAt).toLocaleDateString('en-GB') : entry.byline;
       const photo = target.querySelector('img');
-      if (photo && image) {
-        photo.src = image;
-        photo.alt = entry.title;
+      if (photo) {
+        const hasImage = typeof image === 'string' && /^https:\/\//i.test(image);
+        photo.parentElement.hidden = !hasImage;
+        photo.onerror = () => { photo.parentElement.hidden = true; };
+        if (hasImage) {
+          photo.src = image;
+          photo.alt = entry.title;
+        }
       }
       target.onclick = event => {
         if (!event.target.closest('a')) location.href = link.href;
@@ -207,7 +226,10 @@ async function loadHighlights() {
         if (event.key === 'Enter' && event.target === target) location.href = link.href;
       };
     }
-    document.querySelector('.featured').hidden=!highlights.length;
+    const featured = document.querySelector('.featured');
+    featured.classList.toggle('without-lead', targets.lead.hidden);
+    document.querySelector('.sides').hidden = targets.story1.hidden && targets.story2.hidden;
+    featured.hidden=!highlights.length;
     document.querySelector('.intro').hidden=!highlights.length;
   } catch {
     // Display the other homepage sections if highlights cannot be loaded.
