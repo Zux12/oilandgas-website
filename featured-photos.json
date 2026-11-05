@@ -1,0 +1,50 @@
+[
+  {
+    "photographer": "USGS",
+    "searchPhrase": "USGS Landsat desert satellite imagery",
+    "reason": "A Landsat view illustrates how land is observed from orbit.",
+    "alt": "Landsat view of desert terrain",
+    "source": "https://unsplash.com/photos/J82mJt26TYs",
+    "image": "https://images.unsplash.com/photo-1744971383337-9158443e545c?auto=format&fit=crop&w=1400&q=85",
+    "keywords": [
+      "from space",
+      "satellite observations",
+      "satellite",
+      "satellites",
+      "remote sensing",
+      "landsat"
+    ]
+  },
+  {
+    "photographer": "Ricardo Gomez Angel",
+    "searchPhrase": "industrial metal pipes and valves",
+    "reason": "The visible pipework suits stories about valves and fluid transport.",
+    "alt": "Network of industrial pipes and valves",
+    "source": "https://unsplash.com/photos/41X6FwTwPh4",
+    "image": "https://images.unsplash.com/photo-1620203853151-496c7228306c?auto=format&fit=crop&w=1400&q=85",
+    "keywords": [
+      "pipeline",
+      "pipelines",
+      "pipework",
+      "piping",
+      "valve",
+      "valves"
+    ]
+  },
+  {
+    "photographer": "Patrick Hendry",
+    "searchPhrase": "oil refinery processing towers cloudy sky",
+    "reason": "The refinery exterior provides context for refinery operations and stack emissions.",
+    "alt": "Refinery towers and stacks beneath a cloudy sky",
+    "source": "https://unsplash.com/photos/6xeDIZgoPaw",
+    "image": "https://images.unsplash.com/photo-1516937941344-00b4e0337589?auto=format&fit=crop&w=1400&q=85",
+    "keywords": [
+      "refinery",
+      "refineries",
+      "refining",
+      "petrochemical plant",
+      "stack emissions",
+      "flue gas"
+    ]
+  }
+]
