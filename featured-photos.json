@@ -1,88 +1,275 @@
 [
   {
-    "photographer": "USGS",
-    "searchPhrase": "USGS Landsat desert satellite imagery",
-    "reason": "A Landsat view illustrates how land is observed from orbit.",
-    "alt": "Landsat view of desert terrain",
-    "source": "https://unsplash.com/photos/J82mJt26TYs",
-    "image": "https://images.unsplash.com/photo-1744971383337-9158443e545c?auto=format&fit=crop&w=1400&q=85",
-    "keywords": [
-      "from space",
-      "satellite observations",
-      "satellite",
-      "satellites",
-      "remote sensing",
-      "landsat"
+    "id": "clinical",
+    "alt": "Hospital bedside monitor",
+    "topics": [
+      "Digitalisation",
+      "Sensors",
+      "Technology across industries"
     ],
+    "tags": [
+      "patient monitoring",
+      "internet of medical things",
+      "connected medical devices",
+      "digital health",
+      "healthcare",
+      "health care",
+      "iomt",
+      "telemedicine",
+      "clinical",
+      "hospital",
+      "wearable health",
+      "patient"
+    ],
+    "defaults": []
+  },
+  {
+    "id": "wireless",
+    "alt": "Wireless communications mast",
+    "topics": [
+      "Digitalisation",
+      "Technology across industries"
+    ],
+    "tags": [
+      "private 5g",
+      "wireless communication",
+      "cellular network",
+      "5g",
+      "antenna",
+      "lte",
+      "radio access",
+      "mobile broadband",
+      "telecommunications"
+    ],
+    "defaults": []
+  },
+  {
+    "id": "network",
+    "alt": "Network switching equipment",
+    "topics": [
+      "Digitalisation",
+      "Instrumentation & Control",
+      "Technology across industries"
+    ],
+    "tags": [
+      "network infrastructure",
+      "industrial ethernet",
+      "network switch",
+      "cybersecurity",
+      "data centre",
+      "data center",
+      "fibre optic network",
+      "scada",
+      "connected assets"
+    ],
+    "defaults": [
+      "Digitalisation"
+    ]
+  },
+  {
+    "id": "earth",
+    "alt": "Satellite view of desert terrain",
     "topics": [
       "Measurement",
       "Energy transition"
     ],
-    "description": "Earth observation from orbit, remote mapping of emissions over large areas and satellite monitoring of oil-producing basins."
+    "tags": [
+      "from space",
+      "satellite observation",
+      "satellite",
+      "remote sensing",
+      "earth observation",
+      "landsat",
+      "orbital",
+      "aerial survey"
+    ],
+    "defaults": []
   },
   {
-    "photographer": "Ricardo Gomez Angel",
-    "searchPhrase": "industrial metal pipes and valves",
-    "reason": "The visible pipework suits stories about valves and fluid transport.",
-    "alt": "Network of industrial pipes and valves",
-    "source": "https://unsplash.com/photos/41X6FwTwPh4",
-    "image": "https://images.unsplash.com/photo-1620203853151-496c7228306c?auto=format&fit=crop&w=1400&q=85",
-    "keywords": [
-      "pipeline",
-      "pipelines",
-      "pipework",
-      "piping",
-      "valve",
-      "valves"
+    "id": "optics",
+    "alt": "Optical laboratory bench",
+    "topics": [
+      "Sensors",
+      "Measurement",
+      "Instrumentation & Control",
+      "Technology across industries"
     ],
+    "tags": [
+      "near infrared",
+      "optical spectroscopy",
+      "gas analyser",
+      "gas analyzer",
+      "optical sensor",
+      "infrared",
+      "ammonia",
+      "light absorption",
+      "spectrometer",
+      "ftir",
+      "nir",
+      "ftnir",
+      "photonics",
+      "biosensor"
+    ],
+    "defaults": [
+      "Sensors"
+    ]
+  },
+  {
+    "id": "valve",
+    "alt": "Industrial pipework and control valve",
     "topics": [
       "Instrumentation & Control",
       "Reliability",
-      "Measurement"
+      "Measurement",
+      "Industry news"
     ],
-    "description": "Industrial piping and flow control equipment. Monitoring mechanical valve condition, predicting actuator failures, transporting fluids and maintaining process pipework."
+    "tags": [
+      "electromechanical valve",
+      "control valve",
+      "solenoid",
+      "actuator",
+      "valve",
+      "pipeline",
+      "crude transport",
+      "piping",
+      "pipework"
+    ],
+    "defaults": []
   },
   {
-    "photographer": "Patrick Hendry",
-    "searchPhrase": "oil refinery processing towers cloudy sky",
-    "reason": "The refinery exterior provides context for refinery operations and stack emissions.",
-    "alt": "Refinery towers and stacks beneath a cloudy sky",
-    "source": "https://unsplash.com/photos/6xeDIZgoPaw",
-    "image": "https://images.unsplash.com/photo-1516937941344-00b4e0337589?auto=format&fit=crop&w=1400&q=85",
-    "keywords": [
-      "refinery",
-      "refineries",
-      "refining",
-      "petrochemical plant",
-      "stack emissions",
-      "flue gas"
-    ],
+    "id": "gauge",
+    "alt": "Industrial pressure gauge",
     "topics": [
-      "Energy transition"
-    ],
-    "description": "Refinery operations, industrial combustion, stack emissions and pollution from processing facilities."
-  },
-  {
-    "photographer": "Lightsaber Collection",
-    "searchPhrase": "optical laboratory module testing",
-    "reason": "Optical module testing illustrates the laboratory work involved in optical sensing.",
-    "alt": "Engineer testing an optical module in a laboratory",
-    "source": "https://unsplash.com/photos/TqbptCWbaJg",
-    "image": "https://images.unsplash.com/photo-1682562031780-856bb01f08e8?auto=format&fit=crop&w=1400&q=85",
-    "keywords": [
-      "near infrared",
-      "infrared spectroscopy",
-      "optical gas sensing",
-      "ammonia detection",
-      "optical sensor",
-      "optical sensors",
-      "absorption spectroscopy"
-    ],
-    "topics": [
+      "Measurement",
       "Sensors",
-      "Instrumentation & Control",
-      "Measurement"
+      "Instrumentation & Control"
     ],
-    "description": "Laboratory testing of optical modules. Using light absorption to detect trace gases, distinguish ammonia from interfering species, and measure concentration by near-infrared spectroscopy."
+    "tags": [
+      "pressure gauge",
+      "flow measurement",
+      "custody transfer",
+      "differential pressure",
+      "flow meter",
+      "flowmeter",
+      "calibration",
+      "metering",
+      "transmitter",
+      "pressure"
+    ],
+    "defaults": [
+      "Measurement",
+      "Instrumentation & Control"
+    ]
+  },
+  {
+    "id": "refinery",
+    "alt": "Refinery processing towers",
+    "topics": [
+      "Industry news",
+      "Energy transition",
+      "Instrumentation & Control"
+    ],
+    "tags": [
+      "refinery operations",
+      "refinery",
+      "refining",
+      "oil processing",
+      "petrochemical",
+      "stack emissions",
+      "flue gas",
+      "distillation",
+      "combustion",
+      "lng"
+    ],
+    "defaults": [
+      "Industry news"
+    ]
+  },
+  {
+    "id": "maintenance",
+    "alt": "Technician inspecting a pump",
+    "topics": [
+      "Reliability",
+      "Safety",
+      "Instrumentation & Control"
+    ],
+    "tags": [
+      "predictive maintenance",
+      "rotating equipment",
+      "vibration analysis",
+      "pump",
+      "bearing",
+      "inspection",
+      "failure rate",
+      "mtbf",
+      "maintenance",
+      "asset integrity"
+    ],
+    "defaults": [
+      "Reliability"
+    ]
+  },
+  {
+    "id": "safety",
+    "alt": "Protective equipment at a worksite",
+    "topics": [
+      "Safety",
+      "Reliability"
+    ],
+    "tags": [
+      "worksite safety",
+      "protective equipment",
+      "occupational safety",
+      "fire and gas",
+      "hazard",
+      "ppe",
+      "worker protection",
+      "safeguarding",
+      "incident prevention"
+    ],
+    "defaults": [
+      "Safety"
+    ]
+  },
+  {
+    "id": "renewable",
+    "alt": "Wind turbines and solar panels",
+    "topics": [
+      "Energy transition",
+      "Industry news"
+    ],
+    "tags": [
+      "solar power",
+      "wind farm",
+      "renewable energy",
+      "photovoltaic",
+      "energy storage",
+      "decarbonisation",
+      "clean energy",
+      "turbine",
+      "solar"
+    ],
+    "defaults": [
+      "Energy transition"
+    ]
+  },
+  {
+    "id": "desk",
+    "alt": "Research papers on an editorial desk",
+    "topics": [
+      "Other",
+      "Technology across industries"
+    ],
+    "tags": [
+      "research publication",
+      "literature review",
+      "project management",
+      "editorial",
+      "research methodology"
+    ],
+    "defaults": [
+      "Other",
+      "Technology across industries"
+    ]
   }
 ]
