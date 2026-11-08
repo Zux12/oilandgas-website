@@ -1,3 +1,22 @@
+function appendByline(target, entry) {
+  const paragraph = document.createElement('p');
+  const names = (entry.byline || '').split(/(,\s*|;\s*|\s+(?:and|&)\s+)/i);
+  for (const part of names) {
+    const name = part.trim().toLowerCase().replace(/\./g, '').replace(/\s+/g, ' ');
+    const knownName = ['m zurix mohamed', 'mohd zurix mohamed', 'mohd zurix bin mohamed'].includes(name);
+    const creditedByInitials = entry.reference === 'OG-P-D755771CD5EE21AE' && name === 'm z mohamed';
+    if (knownName || creditedByInitials) {
+      const link = document.createElement('a');
+      link.href = 'm-zurix-mohamed.html';
+      link.textContent = part;
+      paragraph.append(link);
+    } else {
+      paragraph.append(part);
+    }
+  }
+  target.append(paragraph);
+}
+
 function renderEntry(target,entry){
   target.replaceChildren();
   function line(tag,value){
@@ -5,7 +24,9 @@ function renderEntry(target,entry){
   }
   line('small',entry.kind==='articles'?'ARTICLE':'RESEARCH PUBLICATION');
   document.title = entry.title + ' | Oil & Gas';if (entry.crossIndustry) line('small','Technology Across Industries');
-  line('h1',entry.title);line('p',entry.byline);line('small',entry.topic);line('p',entry.summary);
+  line('h1',entry.title);
+  appendByline(target, entry);
+  line('small',entry.topic);line('p',entry.summary);
   if(entry.kind==='articles'){
     line('h3','Full article');
     if(entry.body){
