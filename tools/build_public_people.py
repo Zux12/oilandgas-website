@@ -12,6 +12,8 @@ from urllib.parse import quote, urlencode, urlsplit, parse_qs
 from urllib.request import urlopen
 import xml.etree.ElementTree as ET
 
+from homepage_brief import update_homepage
+
 ROOT = Path(__file__).resolve().parents[1]
 SITE = 'https://oilandgas.eu.com'
 FEED = 'https://mterm2026-559f9bf571b5.herokuapp.com/api/oilandgas/editor/browse'
@@ -339,5 +341,8 @@ if __name__ == '__main__':
     data = load_entries()
     cfg = json.loads((ROOT / 'tools/public-people.json').read_text())
     outputs = make_outputs(data, cfg)
+    issue = json.loads((ROOT / 'editorial/weekly-brief.json').read_text())
+    outputs['index.html'] = update_homepage((ROOT / 'index.html').read_text(), issue, data,
+                                           json.loads(outputs[PATHS]))
     save(outputs)
     print(f'Built public profiles, permanent pages and the sitemap from {len(data)} published entries.')

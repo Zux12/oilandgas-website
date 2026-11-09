@@ -1,0 +1,26 @@
+{
+  "edition": "2026-11-09",
+  "region": "Sarawak, Malaysia",
+  "headline": "Partners plan joint development of Lang Lebah and B14",
+  "news": "On 2 November, PETRONAS Carigali, PTTEP, KUFPEC and TotalEnergies announced agreements covering two gas fields offshore Sarawak. TotalEnergies would become the operator of both fields once the transactions close, subject to regulatory approval.",
+  "engineering": "The fields lie about 14 km apart. Developing them together gives the partners the option to share facilities. For measurement teams, one design question is where to meter each field’s output before the streams are combined.",
+  "sources": [
+    {
+      "label": "PETRONAS announcement",
+      "url": "https://www.petronas.com/media/media-releases/petronas-carigali-and-joint-venture-parties-advance-integrated-development/index.html"
+    },
+    {
+      "label": "PTTEP field details",
+      "url": "https://www.pttep.com/en/newsroom/press-releases/1234/pttep-and-joint-venture-partners-sign-agreements-to-unlock-greater-value-from-sk410b-lang-lebah-and-b14-gas-fields"
+    }
+  ],
+  "field": {
+    "reference": "OG-A-8760F53D33E7ACA4",
+    "teaser": "After a refinery trip, a replacement transmitter restored the flow reading. The workshop inspection revealed where the heavy oil had blocked the pressure path."
+  },
+  "research": {
+    "reference": "OG-P-00C378D8ACA439B7",
+    "headline": "How does sludge dryness affect a refinery’s disposal bill?",
+    "teaser": "When a contractor charges by weight, the water left in the sludge cake matters. A refinery study examines the cost of drying it before disposal."
+  }
+}

@@ -3,7 +3,7 @@ name: Update publication sitemap
 on:
   push:
     branches: [main]
-    paths: ['.github/workflows/update-sitemap.yml', 'tools/build_public_people.py', 'tools/test_public_pages.py', 'tools/public-people.json', 'm-zurix-mohamed.html']
+    paths: ['.github/workflows/update-sitemap.yml', 'tools/build_public_people.py', 'tools/test_public_pages.py', 'tools/homepage_brief.py', 'tools/test_homepage_brief.py', 'editorial/weekly-brief.json', 'tools/public-people.json', 'm-zurix-mohamed.html']
   workflow_dispatch:
   schedule:
     - cron: '17 2 * * *'
@@ -39,11 +39,12 @@ jobs:
       - name: Build author, paper and article pages and sitemap
         run: |
           python3 tools/test_public_pages.py
+          python3 tools/test_homepage_brief.py
           python3 tools/build_public_people.py
 
       - name: Save changes and refresh GitHub Pages
         run: |
-          git add -- authors/ articles/ papers/ entry-paths.json sitemap.xml m-zurix-mohamed.html
+          git add -- index.html authors/ articles/ papers/ entry-paths.json sitemap.xml m-zurix-mohamed.html
           if ! git diff --cached --quiet; then
             git config user.name 'github-actions[bot]'
             git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
