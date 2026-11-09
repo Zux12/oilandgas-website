@@ -1,0 +1,72 @@
+import json
+import tempfile
+import unittest
+from pathlib import Path
+
+import build_public_people as site
+
+
+class PublicPagesTest(unittest.TestCase):
+    def test_publication_lifecycle(self):
+        cfg = {'profiles': {}, 'public_members': [], 'credit_overrides': {}}
+        item = {'kind': 'articles', 'reference': 'OG-A-1234', 'title': 'Level & flow',
+                'byline': 'A. Rahman, B. Wong', 'summary': 'An example summary',
+                'sharedBy': 'C. Tan', 'body': 'First paragraph.\n\nLiteral <tag>.'}
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            def build(items):
+                outputs = site.make_outputs(items, cfg, root)
+                site.save(outputs, root)
+                return outputs
+
+            outputs = build({item['reference']: item})
+            path = json.loads(outputs[site.PATHS])[item['reference']]
+            page = outputs[path[1:]]
+            self.assertIn('Literal &lt;tag&gt;.', page)
+            self.assertIn(f'rel="canonical" href="{site.SITE}{path}"', page)
+            self.assertIn(site.SITE + path, outputs['sitemap.xml'])
+            credit = json.loads(outputs['authors/credits.json'])[item['reference']]
+            self.assertEqual(list(credit['authors']), ['A. Rahman', 'B. Wong'])
+            self.assertEqual(list(credit['shared']), ['C. Tan'])
+            for role in credit.values():
+                for profile in role.values():
+                    self.assertIn(f'href="{profile}"', page)
+                    self.assertIn(f'href="{path}"', outputs[profile[1:]])
+
+            item['title'] = 'A corrected title'
+            second = dict(item, reference='OG-A-OTHER', byline='A. Rahman, D. Lee')
+            updated = build({item['reference']: item, second['reference']: second})
+            new_paths = json.loads(updated[site.PATHS])
+            self.assertEqual(new_paths[item['reference']], path)
+            self.assertNotEqual(new_paths[second['reference']], path)
+            self.assertIn('<h1>A corrected title</h1>', updated[path[1:]])
+            author = updated[credit['authors']['A. Rahman'][1:]]
+            for url in new_paths.values():
+                self.assertIn(f'href="{url}"', author)
+            self.assertEqual(updated, build({item['reference']: item, second['reference']: second}))
+
+            withdrawn = build({second['reference']: second})
+            self.assertFalse((root / path[1:]).exists())
+            self.assertNotIn(site.SITE + path, withdrawn['sitemap.xml'])
+            self.assertNotIn(path, withdrawn[site.PATHS])
+
+    def test_curated_profile_reuses_published_links(self):
+        cfg = {'profiles': {'zurix': {'name': 'M. Zurix Mohamed'}}, 'public_members': [],
+               'credit_overrides': {}}
+        paper = {'kind': 'publications', 'reference': 'OG-P-1234', 'title': 'Metering',
+                 'byline': 'M. Zurix Mohamed', 'source': 'https://example.org/paper'}
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            profile = root / site.ZURIX_PAGE[1:]
+            profile.write_text('<main><a href="read.html?kind=publications&amp;ref=OG-P-1234">Selected paper</a></main>')
+            outputs = site.make_outputs({'OG-P-1234': paper}, cfg, root)
+            url = json.loads(outputs[site.PATHS])['OG-P-1234']
+            self.assertEqual(outputs[profile.name].count(url), 1)
+            self.assertIn('>Selected paper</a>', outputs[profile.name])
+            self.assertIn('href="https://example.org/paper"', outputs[url[1:]])
+            site.save(outputs, root)
+            self.assertEqual(outputs, site.make_outputs({'OG-P-1234': paper}, cfg, root))
+
+
+if __name__ == '__main__':
+    unittest.main()

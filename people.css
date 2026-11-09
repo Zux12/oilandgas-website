@@ -13,3 +13,5 @@
 .people .byline { color: #595954; }
 .people a { text-decoration: underline; text-decoration-color: var(--orange); text-underline-offset: 3px; }
 .people a:hover { color: #943b0b; }
+.entry { overflow-wrap: anywhere; }
+.entry .article-text { white-space: pre-line; }
