@@ -1,0 +1,15 @@
+{
+  "profiles": {
+    "zurix": {
+      "name": "M. Zurix Mohamed",
+      "aliases": ["M Zurix Mohamed", "Mohd Zurix Mohamed", "Mohd Zurix Bin Mohamed"]
+    },
+    "nur-aliana-hidayah-mohamed": {
+      "name": "Nur Aliana Hidayah Mohamed"
+    }
+  },
+  "credit_overrides": {
+    "OG-P-D755771CD5EE21AE": {"M Z Mohamed": "zurix"}
+  },
+  "public_members": []
+}

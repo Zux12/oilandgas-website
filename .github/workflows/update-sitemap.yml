@@ -3,7 +3,7 @@ name: Update publication sitemap
 on:
   push:
     branches: [main]
-    paths: ['.github/workflows/update-sitemap.yml']
+    paths: ['.github/workflows/update-sitemap.yml', 'tools/build_public_people.py', 'tools/public-people.json', 'm-zurix-mohamed.html']
   workflow_dispatch:
   schedule:
     - cron: '17 2 * * *'
@@ -36,65 +36,18 @@ jobs:
             exit 1
           fi
 
-      - name: Generate XML from the public listings
-        run: |
-          python3 - <<'PY'
-          import json
-          from pathlib import Path
-          from urllib.parse import urlencode
-          from urllib.request import urlopen
-          import xml.etree.ElementTree as ET
-
-          site = 'https://oilandgas.eu.com/'
-          feed = 'https://mterm2026-559f9bf571b5.herokuapp.com/api/oilandgas/editor/browse'
-          urls = {site}
-          for page_name in ('contact.html', 'membership.html'):
-              if Path(page_name).is_file():
-                  urls.add(site + page_name)
-
-          for kind in ('articles', 'publications'):
-              urls.add(site + 'browse.html?' + urlencode({'kind': kind}))
-              page = 0
-              while True:
-                  query = urlencode({'kind': kind, 'page': page, 'limit': 24})
-                  with urlopen(feed + '?' + query, timeout=30) as response:
-                      listing = json.load(response)
-                  items, more = listing['items'], listing['more']
-                  if not isinstance(items, list) or not isinstance(more, bool) or (more and len(items) != 24):
-                      raise ValueError('Incomplete response from the public listing')
-                  for entry in items:
-                      ref = entry['reference']
-                      if entry['kind'] != kind or not isinstance(ref, str) or not ref.strip():
-                          raise ValueError('Missing or invalid public article reference')
-                      url = site + 'read.html?' + urlencode({'kind': kind, 'ref': ref})
-                      if url in urls:
-                          raise ValueError('Listing changed during pagination. Run the workflow again.')
-                      urls.add(url)
-                  if not more:
-                      break
-                  page += 1
-
-          if len(urls) > 50000:
-              raise ValueError('The sitemap must now be split into multiple files')
-          root = ET.Element('urlset', xmlns='http://www.sitemaps.org/schemas/sitemap/0.9')
-          for url in sorted(urls):
-              ET.SubElement(ET.SubElement(root, 'url'), 'loc').text = url
-          ET.indent(root)
-          ET.ElementTree(root).write('sitemap.xml', encoding='utf-8', xml_declaration=True)
-          print(f'Generated sitemap with {len(urls)} public URLs.')
-          PY
+      - name: Build public profiles and sitemap
+        run: python3 tools/build_public_people.py
 
       - name: Save changes and refresh GitHub Pages
         run: |
-          git add -- sitemap.xml
+          git add -- authors/ sitemap.xml m-zurix-mohamed.html
           if ! git diff --cached --quiet; then
             git config user.name 'github-actions[bot]'
             git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-            git commit -m "Update public sitemap"
+            git commit -m "Update public profiles and sitemap"
             git push origin HEAD:main
-          fi
-          if curl --fail --silent --show-error --location --max-time 30 https://oilandgas.eu.com/sitemap.xml -o "$RUNNER_TEMP/live-sitemap.xml" && cmp -s sitemap.xml "$RUNNER_TEMP/live-sitemap.xml"; then
-            echo "The live sitemap is current."
-          else
+            gh api --method POST "repos/$GITHUB_REPOSITORY/pages/builds" --silent
+          elif ! curl --fail --silent --show-error --location --max-time 30 https://oilandgas.eu.com/sitemap.xml -o "$RUNNER_TEMP/live-sitemap.xml" || ! cmp -s sitemap.xml "$RUNNER_TEMP/live-sitemap.xml"; then
             gh api --method POST "repos/$GITHUB_REPOSITORY/pages/builds" --silent
           fi
