@@ -1,0 +1,15 @@
+.people-nav { flex-wrap: wrap; }
+.people { max-width: 900px; margin: 0 auto; padding: 36px 24px 64px; color: var(--ink); }
+.people h1, .people h2, .people h3 { font-family: Georgia, serif; font-weight: 400; }
+.people h1 { font-size: clamp(2.3rem, 6vw, 3.8rem); line-height: 1.09; margin: 10px 0 24px; }
+.people h2 { font-size: 1.6rem; border-top: 2px solid var(--ink); padding-top: 14px; margin: 32px 0 4px; }
+.people p { line-height: 1.6; max-width: 72ch; }
+.people .directory, .people .works { list-style: none; padding: 0; }
+.people .directory { columns: 2 240px; column-gap: 36px; }
+.people .directory li { break-inside: avoid; border-bottom: 1px solid var(--line); padding: 9px 0; }
+.people .works li { padding: 16px 0; border-bottom: 1px solid var(--line); }
+.people h3 { font-size: 1.28rem; line-height: 1.35; margin: 0 0 8px; }
+.people .works p { margin: 4px 0; }
+.people .byline { color: #595954; }
+.people a { text-decoration: underline; text-decoration-color: var(--orange); text-underline-offset: 3px; }
+.people a:hover { color: #943b0b; }
