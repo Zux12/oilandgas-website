@@ -10,6 +10,7 @@ const collectionName = 'Technology Across Industries';
 const collectionIntro = 'Explore how other industries approach engineering problems familiar to oil and gas professionals.';
 let generation = 0;
 let debounce;
+let publishedPaths = {};
 
 function excerpt(value, length = 210) {
   const text = String(value || '').trim();
@@ -18,7 +19,7 @@ function excerpt(value, length = 210) {
   return cut.slice(0, cut.lastIndexOf(' ') > 0 ? cut.lastIndexOf(' ') : length) + '…';
 }
 function readingLink(item) {
-  return 'read.html?' + new URLSearchParams({kind: item.kind, ref: item.reference});
+  return permanentEntryPath(publishedPaths, item.kind, item.reference) || 'read.html?' + new URLSearchParams({kind: item.kind, ref: item.reference});
 }
 function node(tag, text, className) {
   const element = document.createElement(tag);
@@ -80,6 +81,7 @@ async function loadSection(entryKind, limit, targetId, statusId, version) {
     } else {
       data = await fetchEntries(entryKind, limit);
     }
+    publishedPaths = await entryPathsReady;
     if (version !== generation) return;
     target.replaceChildren(...data.items.map(item => card(item, !browseMode && entryKind === 'publications', mixed)));
     status.textContent = data.items.length ? '' : 'No published ' + entryKind + ' match this selection.';
@@ -203,6 +205,7 @@ async function loadHighlights() {
     const response = await fetchWithTimeout(contentApi + 'highlights');
     if (!response.ok) return;
     const highlights = await response.json();
+    publishedPaths = await entryPathsReady;
     const targets = {
       lead: document.querySelector('.lead'),
       story1: document.querySelectorAll('.side-story')[0],

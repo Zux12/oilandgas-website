@@ -3,7 +3,7 @@ name: Update publication sitemap
 on:
   push:
     branches: [main]
-    paths: ['.github/workflows/update-sitemap.yml', 'tools/build_public_people.py', 'tools/public-people.json', 'm-zurix-mohamed.html']
+    paths: ['.github/workflows/update-sitemap.yml', 'tools/build_public_people.py', 'tools/test_public_pages.py', 'tools/public-people.json', 'm-zurix-mohamed.html']
   workflow_dispatch:
   schedule:
     - cron: '17 2 * * *'
@@ -36,16 +36,18 @@ jobs:
             exit 1
           fi
 
-      - name: Build public profiles and sitemap
-        run: python3 tools/build_public_people.py
+      - name: Build author, paper and article pages and sitemap
+        run: |
+          python3 tools/test_public_pages.py
+          python3 tools/build_public_people.py
 
       - name: Save changes and refresh GitHub Pages
         run: |
-          git add -- authors/ sitemap.xml m-zurix-mohamed.html
+          git add -- authors/ articles/ papers/ entry-paths.json sitemap.xml m-zurix-mohamed.html
           if ! git diff --cached --quiet; then
             git config user.name 'github-actions[bot]'
             git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-            git commit -m "Update public profiles and sitemap"
+            git commit -m "Update public profiles, published works and sitemap"
             git push origin HEAD:main
             gh api --method POST "repos/$GITHUB_REPOSITORY/pages/builds" --silent
           elif ! curl --fail --silent --show-error --location --max-time 30 https://oilandgas.eu.com/sitemap.xml -o "$RUNNER_TEMP/live-sitemap.xml" || ! cmp -s sitemap.xml "$RUNNER_TEMP/live-sitemap.xml"; then

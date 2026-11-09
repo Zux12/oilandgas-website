@@ -54,8 +54,13 @@ function renderEntry(target,entry){
   }
 }
 const publicReader=document.querySelector('#public-reader');
-if(publicReader){
-  const params=new URLSearchParams(location.search);
+async function openReader() {
+  const params = new URLSearchParams(location.search);
+  const path = permanentEntryPath(await entryPathsReady, params.get('kind'), params.get('ref'));
+  if (path) {
+    location.replace(path + location.hash);
+    return;
+  }
   const directory = fetch('/authors/credits.json')
     .then(r => r.ok ? r.json() : {}).catch(() => ({}));
   fetch('https://mterm2026-559f9bf571b5.herokuapp.com/api/oilandgas/editor/published/'+encodeURIComponent(params.get('kind'))+'/'+encodeURIComponent(params.get('ref')))
@@ -76,3 +81,4 @@ if(publicReader){
     })
     .catch(()=>{publicReader.textContent='This entry is unavailable.';});
 }
+if (publicReader) openReader();
