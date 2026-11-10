@@ -54,15 +54,37 @@ async function fetchWithTimeout(url) {
   try { return await fetch(url, {signal:controller.signal}); }
   finally { clearTimeout(timer); }
 }
-async function fetchEntries(entryKind, limit) {
+async function fetchEntries(entryKind, limit, pageIndex = browseMode ? page : 0) {
   const params = new URLSearchParams({
-    kind: entryKind, page: String(browseMode ? page : 0), limit: String(limit),
+    kind: entryKind, page: String(pageIndex), limit: String(limit),
     topic: selectedTopic, q: search.value.trim()
   });
   if (browseMode) params.set('includeTotal', 'true');
   const response = await fetchWithTimeout(contentApi + 'browse?' + params);
   if (!response.ok) throw new Error('Could not load entries.');
   return response.json();
+}
+async function browsePageCount(entryKind, limit, data, version) {
+  if (Number.isSafeInteger(data.total)) return Math.ceil(data.total / limit);
+  // Older API releases expose only "more". Use the index as a starting guess,
+  // then find the last page in the live, filtered results.
+  const folder = entryKind === 'publications' ? '/papers/' : '/articles/';
+  const indexed = Object.values(publishedPaths).filter(path => path.startsWith(folder)).length;
+  let low = 0;
+  let high = null;
+  let probe = page;
+  while (version === generation) {
+    if (data.more) low = probe + 1;
+    else if (data.items.length) return probe + 1;
+    else if (probe === 0) return 0;
+    else high = probe - 1;
+    if (high !== null && low > high) return low;
+    probe = high === null
+      ? Math.max(low, Math.ceil(indexed / limit) - 1, probe * 2 + 1)
+      : Math.floor((low + high) / 2);
+    data = await fetchEntries(entryKind, limit, probe);
+  }
+  return null;
 }
 async function loadSection(entryKind, limit, targetId, statusId, version) {
   const target = document.getElementById(targetId);
@@ -84,23 +106,27 @@ async function loadSection(entryKind, limit, targetId, statusId, version) {
     }
     publishedPaths = await entryPathsReady;
     if (version !== generation) return;
+    target.replaceChildren(...data.items.map(item => card(item, !browseMode && entryKind === 'publications', mixed)));
+    status.textContent = data.items.length ? '' : 'No published ' + entryKind + ' match this selection.';
     if (browseMode) {
-      let label = 'Page ' + (page + 1);
-      if (Number.isSafeInteger(data.total)) {
-        const pageCount = Math.ceil(data.total / limit);
+      const number = document.getElementById('page-number');
+      const current = 'Page ' + (page + 1);
+      number.textContent = current;
+      document.getElementById('previous').disabled = page === 0;
+      document.getElementById('next').disabled = !data.more;
+      try {
+        const pageCount = await browsePageCount(entryKind, limit, data, version);
+        if (version !== generation) return;
         const lastPage = Math.max(0, pageCount - 1);
         if (page > lastPage) {
           page = lastPage;
           return refresh();
         }
-        label = pageCount ? label + ' of ' + pageCount : '0 pages';
+        number.textContent = pageCount ? current + ' of ' + pageCount : '0 pages';
+      } catch {
+        // The loaded page and its navigation still work if a count request fails.
       }
-      document.getElementById('previous').disabled = page === 0;
-      document.getElementById('next').disabled = !data.more;
-      document.getElementById('page-number').textContent = label;
     }
-    target.replaceChildren(...data.items.map(item => card(item, !browseMode && entryKind === 'publications', mixed)));
-    status.textContent = data.items.length ? '' : 'No published ' + entryKind + ' match this selection.';
   } catch {
     if (version !== generation) return;
     status.textContent = 'Entries are temporarily unavailable. ';
