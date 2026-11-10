@@ -1,7 +1,47 @@
+/* Homepage masthead */
+.masthead .brand {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding-block: 8px;
+}
+.masthead .brand a { display: block; width: clamp(180px, 24vw, 290px); }
+.masthead .brand img { display: block; width: 100%; height: auto; mix-blend-mode: multiply; }
+.masthead .search {
+  width: clamp(8rem, 21vw, 15rem);
+  min-width: 0;
+  padding: 9px 12px;
+  background: transparent;
+  color: var(--ink);
+  border: 1px solid var(--line);
+}
+.masthead .nav {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px clamp(12px, 2vw, 28px);
+  padding-block: 6px;
+  border-block: 1px solid var(--ink);
+}
+.masthead .nav a { padding-block: 7px; font-size: 14px; font-weight: 600; }
+.masthead .nav .primary { margin-inline-start: auto; padding: 8px 14px; }
+.card .meta, .paper .meta, .story .meta { font-weight: 600; }
+.story [data-featured-photo-credit] { font-weight: 400; }
+.story [data-featured-photo-credit] a { text-decoration: underline; }
+@media (max-width: 540px) {
+  .masthead .brand { padding-block: 6px; }
+  .masthead .brand a { width: min(54%, 200px); }
+  .masthead .search { flex: 1; max-width: 11rem; font-size: 16px; }
+  .masthead .nav { column-gap: 14px; }
+  .masthead .nav .primary { margin-inline-start: 0; }
+}
+
 .weekly-edition { margin: 30px 0 34px; }
 .weekly-dateline { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; padding-bottom: 10px; border-bottom: 2px solid var(--ink); }
 .weekly-dateline strong { font: 600 14px Arial, sans-serif; }
-.weekly-dateline time, .weekly-byline { color: #595954; font-size: 13px; }
+.weekly-dateline time { color: #474742; font-size: 14px; }
+.weekly-edition .weekly-byline { color: #30302d; font-size: 15px; font-weight: 600; line-height: 1.5; }
 .weekly-grid { display: grid; grid-template-columns: minmax(0, 1.55fr) minmax(0, 1fr); gap: clamp(24px, 4vw, 60px); margin-top: 24px; }
 .weekly-grid.news-only { grid-template-columns: minmax(0, 78ch); }
 .weekly-lead h2 { font: normal clamp(2.2rem, 4vw, 3.6rem)/1.06 Georgia, serif; margin: 12px 0 18px; text-wrap: balance; }
@@ -9,7 +49,7 @@
 .weekly-edition .eyebrow { margin: 0; }
 .weekly-engineering { border-left: 3px solid var(--orange); padding-left: 14px; }
 .weekly-engineering strong { display: block; }
-.weekly-sources a { font-size: 13px; text-decoration: underline; text-underline-offset: 3px; }
+.weekly-sources a { color: #474742; font-size: 15px; text-decoration: underline; text-underline-offset: 3px; }
 .weekly-picks { border-left: 1px solid var(--line); padding-left: clamp(22px, 3vw, 40px); }
 .weekly-pick + .weekly-pick { border-top: 1px solid var(--line); margin-top: 18px; padding-top: 18px; }
 .weekly-pick h3 { font: normal clamp(1.35rem, 2.2vw, 1.75rem)/1.15 Georgia, serif; margin: 8px 0; }
@@ -22,5 +62,5 @@
 
 .weekly-lead-photo { margin: 16px 0; }
 .weekly-lead-photo img { display: block; width: 100%; aspect-ratio: 2.4 / 1; object-fit: cover; }
-.weekly-lead-photo figcaption { margin-top: 6px; font-size: 13px; line-height: 1.4; color: #595954; }
+.weekly-lead-photo figcaption { margin-top: 6px; font-size: 14px; line-height: 1.5; color: #474742; }
 .weekly-lead-photo figcaption a { text-decoration: underline; text-underline-offset: 2px; }
