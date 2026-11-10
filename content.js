@@ -227,19 +227,15 @@ async function loadHighlights() {
       if (photo) {
         const hasImage = typeof image === 'string' && /^https:\/\//i.test(image);
         photo.parentElement.hidden = !hasImage;
-        photo.onerror = () => { photo.parentElement.hidden = true; };
         if (hasImage) {
           photo.src = image;
           photo.alt = entry.title;
         }
+        import('./featured-photo.mjs')
+          .then(module => module.fillFeaturedPhoto(photo, entry, hasImage ? image : ''))
+          .catch(() => { /* Keep an available editor image or the text layout. */ });
       }
 
-            if (slot === 'lead' && photo && !String(image || '').trim()) {
-        import('./featured-photo.mjs')
-          .then(module => module.fillFeaturedPhoto(photo, entry))
-          .catch(() => { /* Keep the text layout if the photo cannot load. */ });
-      }
-      
       target.onclick = event => {
         if (!event.target.closest('a')) location.href = link.href;
       };

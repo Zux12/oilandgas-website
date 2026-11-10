@@ -11,6 +11,8 @@ function tieBreaker(seed) {
   return hash >>> 0;
 }
 
+export const photoCredit = photo => photo.credit || 'AI-generated editorial illustration';
+
 export function photoChoices(photos, entry) {
   const title = ' ' + forms(entry.title) + ' ';
   const summary = ' ' + forms(entry.summary) + ' ';
@@ -27,9 +29,9 @@ export function photoChoices(photos, entry) {
     return {photo, score, tie: tieBreaker((entry.reference || title) + '/' + photo.id)};
   });
   tagged.sort((a,b) => b.score - a.score || a.tie - b.tie);
-  const specific = tagged.find(row => row.score > 0)?.photo;
+  const matches = tagged.filter(row => row.score > 0).map(row => row.photo);
   const standard = photos.find(photo => photo.defaults.some(t => normalize(t) === topic));
-  return [...new Map([specific, standard, cover].filter(Boolean).map(p => [p.id,p])).values()];
+  return [...new Map([...matches, standard, cover].filter(Boolean).map(p => [p.id,p])).values()];
 }
 
 export async function fillFeaturedPhoto(img, entry, suppliedImage = '') {
@@ -52,7 +54,14 @@ export async function fillFeaturedPhoto(img, entry, suppliedImage = '') {
       const label = document.createElement('small');
       label.className = 'meta';
       label.dataset.featuredPhotoCredit = '';
-      label.textContent = 'AI-generated editorial illustration';
+      if (choice.source) {
+        const link = document.createElement('a');
+        link.textContent = photoCredit(choice);
+        link.href = choice.source;
+        label.append(link);
+      } else {
+        label.textContent = photoCredit(choice);
+      }
       box.after(label);
     }
     return true;

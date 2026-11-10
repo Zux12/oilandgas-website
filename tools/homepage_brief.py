@@ -1,6 +1,9 @@
 """Render the weekly homepage edition from its editorial brief and the published feed."""
+import json
+import subprocess
 from datetime import date
 from html import escape
+from pathlib import Path
 from urllib.parse import urlsplit
 
 START = '<!-- Weekly edition: start -->'
@@ -34,6 +37,19 @@ def work_card(label, kind, pick, entries, paths):
 </article>'''
 
 
+def lead_figure(issue):
+    selector = Path(__file__).with_name('select_lead_photo.mjs')
+    result = subprocess.run(['node', str(selector)], input=json.dumps(issue),
+                            text=True, capture_output=True, check=True)
+    photo = json.loads(result.stdout)
+    credit = escape(photo['credit'])
+    if photo.get('source'):
+        credit = source_link({'label': photo['credit'], 'url': photo['source']})
+    return (f'<figure class="weekly-lead-photo"><img src="/featured-images/{escape(photo["id"])}.jpg" '
+            f'alt="{escape(photo["alt"])}" decoding="async" fetchpriority="high">'
+            f'<figcaption>{credit}</figcaption></figure>')
+
+
 def update_homepage(home, issue, entries, paths):
     if home.count(START) != 1 or home.count(END) != 1:
         raise ValueError('Weekly homepage markers are missing or duplicated')
@@ -52,7 +68,9 @@ def update_homepage(home, issue, entries, paths):
 <div class="{layout}">
 <article class="weekly-lead">
 <p class="eyebrow">Industry news · {escape(issue['region'])}</p>
-<h2>{escape(issue['headline'])}</h2><p>{escape(issue['news'])}</p>
+<h2>{escape(issue['headline'])}</h2>
+{lead_figure(issue)}
+<p>{escape(issue['news'])}</p>
 <p class="weekly-engineering"><strong>Engineering perspective</strong> {escape(issue['engineering'])}</p>
 <p class="weekly-sources">{' · '.join(sources)}</p>
 </article>{sidebar}
