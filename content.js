@@ -59,6 +59,7 @@ async function fetchEntries(entryKind, limit) {
     kind: entryKind, page: String(browseMode ? page : 0), limit: String(limit),
     topic: selectedTopic, q: search.value.trim()
   });
+  if (browseMode) params.set('includeTotal', 'true');
   const response = await fetchWithTimeout(contentApi + 'browse?' + params);
   if (!response.ok) throw new Error('Could not load entries.');
   return response.json();
@@ -83,13 +84,23 @@ async function loadSection(entryKind, limit, targetId, statusId, version) {
     }
     publishedPaths = await entryPathsReady;
     if (version !== generation) return;
-    target.replaceChildren(...data.items.map(item => card(item, !browseMode && entryKind === 'publications', mixed)));
-    status.textContent = data.items.length ? '' : 'No published ' + entryKind + ' match this selection.';
     if (browseMode) {
+      let label = 'Page ' + (page + 1);
+      if (Number.isSafeInteger(data.total)) {
+        const pageCount = Math.ceil(data.total / limit);
+        const lastPage = Math.max(0, pageCount - 1);
+        if (page > lastPage) {
+          page = lastPage;
+          return refresh();
+        }
+        label = pageCount ? label + ' of ' + pageCount : '0 pages';
+      }
       document.getElementById('previous').disabled = page === 0;
       document.getElementById('next').disabled = !data.more;
-      document.getElementById('page-number').textContent = 'Page ' + (page + 1);
+      document.getElementById('page-number').textContent = label;
     }
+    target.replaceChildren(...data.items.map(item => card(item, !browseMode && entryKind === 'publications', mixed)));
+    status.textContent = data.items.length ? '' : 'No published ' + entryKind + ' match this selection.';
   } catch {
     if (version !== generation) return;
     status.textContent = 'Entries are temporarily unavailable. ';
@@ -104,6 +115,7 @@ function refresh() {
   if (browseMode) {
     document.getElementById('previous').disabled = true;
     document.getElementById('next').disabled = true;
+    document.getElementById('page-number').textContent = '';
     history.replaceState(null, '', '?' + new URLSearchParams({
       kind, topic: selectedTopic, q: search.value, page: String(page)
     }));
