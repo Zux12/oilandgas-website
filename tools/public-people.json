@@ -2,14 +2,316 @@
   "profiles": {
     "zurix": {
       "name": "M. Zurix Mohamed",
-      "aliases": ["M Zurix Mohamed", "Mohd Zurix Mohamed", "Mohd Zurix Bin Mohamed"]
+      "aliases": [
+        "M Zurix Mohamed",
+        "Mohd Zurix Mohamed",
+        "Mohd Zurix Bin Mohamed"
+      ]
     },
     "nur-aliana-hidayah-mohamed": {
       "name": "Nur Aliana Hidayah Mohamed"
+    },
+    "mohd-kamal-mohd-shah-94a6278c1cc2": {
+      "name": "Mohd. Kamal Mohd. Shah",
+      "bio": "Universiti Malaysia Sabah is the affiliation listed for Mohd. Kamal Mohd. Shah on the 2024 paper below."
+    },
+    "nur-tantiyani-ali-othman-ba11eb35e84f": {
+      "name": "Nur Tantiyani Ali Othman",
+      "bio": "Universiti Kebangsaan Malaysia is the affiliation listed for Nur Tantiyani Ali Othman on the 2024 paper below."
+    },
+    "nur-azliza-ahmad-ed2254762a6c": {
+      "name": "Nur Azliza Ahmad",
+      "bio": "MAHSA University is the affiliation listed for Nur Azliza Ahmad on the 2021 paper below."
+    },
+    "nur-amira-adam-0e84a8598b2e": {
+      "name": "Nur Amira Adam",
+      "bio": "Netherlands Maritime University College is the affiliation listed for Nur Amira Adam on the 2023 paper below."
+    },
+    "rahman-ashena-346706f1a0ef": {
+      "name": "Rahman Ashena",
+      "bio": "Asia Pacific University of Technology and Innovation is the affiliation listed for Rahman Ashena on the 2023 paper below."
+    },
+    "md-badron-ismail-40124c9e5dba": {
+      "name": "Md Badron Ismail",
+      "bio": "Universiti Utara Malaysia is the affiliation listed for Md Badron Ismail on the 2024 paper below."
+    },
+    "mohd-asyadi-azam-18de3f06ba01": {
+      "name": "Mohd Asyadi Azam",
+      "bio": "Universiti Teknikal Malaysia Melaka is the affiliation listed for Mohd Asyadi Azam on the 2020 paper below."
+    },
+    "abdulaziz-al-khulaqi-a0ff947fe0e3": {
+      "name": "Abdulaziz Al-Khulaqi",
+      "bio": "Al-Madinah International University is the affiliation listed for Abdulaziz Al-Khulaqi on the 2024 paper below."
+    },
+    "renato-lima-de-oliveira-3607f1848dab": {
+      "name": "Renato Lima-de-Oliveira",
+      "bio": "Asia School of Business is the affiliation listed for Renato Lima-de-Oliveira on the 2025 paper below."
+    },
+    "wan-fatimah-wan-ahmad-60db4b1cffce": {
+      "name": "Wan Fatimah Wan Ahmad",
+      "bio": "Asia e University is the affiliation listed for Wan Fatimah Wan Ahmad on the 2023 paper below."
+    },
+    "ahmed-ali-alalawi-6cf155e504cb": {
+      "name": "Ahmed Ali Alalawi",
+      "bio": "Binary University of Management & Entrepreneurship is the affiliation listed for Ahmed Ali Alalawi on the 2021 paper below."
+    },
+    "mohd-ridzuan-darun-84faeafac354": {
+      "name": "Mohd Ridzuan Darun",
+      "bio": "City University is the affiliation listed for Mohd Ridzuan Darun on the 2022 paper below."
+    },
+    "kuok-ho-daniel-tang-08081480e857": {
+      "name": "Kuok Ho Daniel Tang",
+      "bio": "Curtin University, Malaysia is the affiliation listed for Kuok Ho Daniel Tang on the 2019 paper below."
+    },
+    "k-latif-2dff2cea5b7c": {
+      "name": "K Latif",
+      "bio": "DRB-HICOM University of Automotive Malaysia is the affiliation listed for K Latif on the 2019 paper below."
+    },
+    "khalik-m-sabil-f806940845fe": {
+      "name": "Khalik M. Sabil",
+      "bio": "Heriot-Watt University Malaysia is the affiliation listed for Khalik M. Sabil on the 2019 paper below."
+    },
+    "chiew-yen-wong-93c49fa51175": {
+      "name": "Chiew-Yen Wong",
+      "bio": "IMU University is the affiliation listed for Chiew-Yen Wong on the 2022 paper below."
+    },
+    "wajahat-azmi-09155bc60f0c": {
+      "name": "Wajahat Azmi",
+      "bio": "INCEIF University is the affiliation listed for Wajahat Azmi on the 2019 paper below."
+    },
+    "amir-h-mohammadi-c98c4efac0ca": {
+      "name": "Amir H. Mohammadi",
+      "bio": "INTI International University is the affiliation listed for Amir H. Mohammadi on the 2026 paper below."
+    },
+    "hamzah-abdul-rahman-53518b1d2b8f": {
+      "name": "Hamzah Abdul-Rahman",
+      "bio": "Kolej Universiti Vision is the affiliation listed for Hamzah Abdul-Rahman on the 2019 paper below."
+    },
+    "isidiho-alphonsus-o-d21c7f78e7bf": {
+      "name": "Isidiho Alphonsus O.",
+      "bio": "Limkokwing University of Creative Technology is the affiliation listed for Isidiho Alphonsus O. on the 2023 paper below."
+    },
+    "waleed-al-ali-3759706c309e": {
+      "name": "Waleed Al-Ali",
+      "bio": "Lincoln University College is the affiliation listed for Waleed Al-Ali on the 2019 paper below."
+    },
+    "rasheedul-haque-13ecac055848": {
+      "name": "Rasheedul Haque",
+      "bio": "MILA University is the affiliation listed for Rasheedul Haque on the 2025 paper below."
+    },
+    "vina-dooshima-kiishi-1b2eed4d5ee9": {
+      "name": "Vina Dooshima Kiishi",
+      "bio": "Management and Science University is the affiliation listed for Vina Dooshima Kiishi on the 2025 paper below."
+    },
+    "ee-von-lau-da4e46297aef": {
+      "name": "Ee Von Lau",
+      "bio": "Monash University Malaysia is the affiliation listed for Ee Von Lau on the 2021 paper below."
+    },
+    "bright-akwasi-gyamfi-5462eabe280e": {
+      "name": "Bright Akwasi Gyamfi",
+      "bio": "Multimedia University is the affiliation listed for Bright Akwasi Gyamfi on the 2026 paper below."
+    },
+    "c-c-sang-ed17031ac03c": {
+      "name": "C C Sang",
+      "bio": "Nilai University is the affiliation listed for C C Sang on the 2020 paper below."
+    },
+    "zachariah-bissah-ad1a79185ce0": {
+      "name": "Zachariah Bissah",
+      "bio": "Open University Malaysia is the affiliation listed for Zachariah Bissah on the 2024 paper below."
+    },
+    "mawuena-akosua-cudjoe-cd21dce55c76": {
+      "name": "Mawuena Akosua Cudjoe",
+      "bio": "Putra Business School is the affiliation listed for Mawuena Akosua Cudjoe on the 2019 paper below."
+    },
+    "maisara-shahrom-raja-shahrom-b0670d491b03": {
+      "name": "Maisara Shahrom Raja Shahrom",
+      "bio": "Quest International University is the affiliation listed for Maisara Shahrom Raja Shahrom on the 2022 paper below."
+    },
+    "sanmugam-annamalah-242ba9b99a49": {
+      "name": "Sanmugam Annamalah",
+      "bio": "SEGi University is the affiliation listed for Sanmugam Annamalah on the 2018 paper below."
+    },
+    "mohamed-kaisarul-haq-038e4c6a755a": {
+      "name": "Mohamed Kaisarul Haq",
+      "bio": "Spectrum International University College is the affiliation listed for Mohamed Kaisarul Haq on the 2026 paper below."
+    },
+    "jaya-prasanth-rajakal-a8c5b7bfe3c8": {
+      "name": "Jaya Prasanth Rajakal",
+      "bio": "Sunway University is the affiliation listed for Jaya Prasanth Rajakal on the 2025 paper below."
+    },
+    "ahmed-mahmoud-33fd3aeae8ce": {
+      "name": "Ahmed Mahmoud",
+      "bio": "Swinburne University of Technology Sarawak Campus is the affiliation listed for Ahmed Mahmoud on the 2020 paper below."
+    },
+    "dinh-hoang-bach-phan-4f0a6882c425": {
+      "name": "Dinh Hoang Bach Phan",
+      "bio": "Taylor's University is the affiliation listed for Dinh Hoang Bach Phan on the 2018 paper below."
+    },
+    "chin-tiong-cheng-1162780aeccc": {
+      "name": "Chin-Tiong Cheng",
+      "bio": "Tunku Abdul Rahman University of Management and Technology is the affiliation listed for Chin-Tiong Cheng on the 2023 paper below."
+    },
+    "meng-choung-chiong-320d24e70e3f": {
+      "name": "Meng-Choung Chiong",
+      "bio": "UCSI University is the affiliation listed for Meng-Choung Chiong on the 2022 paper below."
+    },
+    "mehdi-samieiyeganeh-482710e9bd5d": {
+      "name": "Mehdi Samieiyeganeh",
+      "bio": "UNITAR International University is the affiliation listed for Mehdi Samieiyeganeh on the 2026 paper below."
+    },
+    "heoy-geok-how-f1c3721547f5": {
+      "name": "Heoy Geok How",
+      "bio": "UOW MALAYSIA KDU Penang University College is the affiliation listed for Heoy Geok How on the 2026 paper below."
+    },
+    "azhar-mohamad-ad3915202057": {
+      "name": "Azhar Mohamad",
+      "bio": "Universiti Islam Antarabangsa Malaysia is the affiliation listed for Azhar Mohamad on the 2026 paper below."
+    },
+    "muhammad-baqir-abdullah-aa81c2f48e1b": {
+      "name": "Muhammad Baqir Abdullah",
+      "bio": "Universiti Islam Antarabangsa Sultan Abdul Halim Mu'adzam Shah is the affiliation listed for Muhammad Baqir Abdullah on the 2024 paper below."
+    },
+    "siti-naaishah-hambali-a148cce208e6": {
+      "name": "Siti Naaishah Hambali",
+      "bio": "Universiti Islam Malaysia is the affiliation listed for Siti Naaishah Hambali on the 2026 paper below."
+    },
+    "abdul-razak-bin-abdul-hadi-88bb8507dc25": {
+      "name": "Abdul Razak Bin Abdul Hadi",
+      "bio": "Universiti Kuala Lumpur is the affiliation listed for Abdul Razak Bin Abdul Hadi on the 2023 paper below."
+    },
+    "rabia-ikram-1c88792b56cb": {
+      "name": "Rabia Ikram",
+      "bio": "Universiti Malaya is the affiliation listed for Rabia Ikram on the 2024 paper below."
+    },
+    "nadiah-ameram-6b5a9b8d6349": {
+      "name": "Nadiah Ameram",
+      "bio": "Universiti Malaysia Kelantan is the affiliation listed for Nadiah Ameram on the 2020 paper below."
+    },
+    "siti-qurratu-aini-mahat-2d60de32615b": {
+      "name": "Siti Qurratu’ Aini Mahat",
+      "bio": "Universiti Malaysia Pahang Al-Sultan Abdullah is the affiliation listed for Siti Qurratu’ Aini Mahat on the 2025 paper below."
+    },
+    "majid-al-nabae-e6a7f8639e61": {
+      "name": "Majid Al-Nabae",
+      "bio": "Universiti Malaysia Perlis is the affiliation listed for Majid Al-Nabae on the 2024 paper below."
+    },
+    "norfamila-che-mat-a9a1583a69af": {
+      "name": "Norfamila Che Mat",
+      "bio": "Universiti Malaysia Sarawak is the affiliation listed for Norfamila Che Mat on the 2026 paper below."
+    },
+    "lai-fatt-chuah-e88a11b25ef4": {
+      "name": "Lai Fatt Chuah",
+      "bio": "Universiti Malaysia Terengganu is the affiliation listed for Lai Fatt Chuah on the 2023 paper below."
+    },
+    "muhammad-firdaus-bin-yusup-4595a087efef": {
+      "name": "Muhammad Firdaus Bin Yusup",
+      "bio": "Universiti Pendidikan Sultan Idris is the affiliation listed for Muhammad Firdaus Bin Yusup on the 2024 paper below."
+    },
+    "nur-amalina-binti-jamaludin-c551718244b7": {
+      "name": "Nur Amalina Binti Jamaludin",
+      "bio": "Universiti Pertahanan Nasional Malaysia is the affiliation listed for Nur Amalina Binti Jamaludin on the 2026 paper below."
+    },
+    "borhan-manan-66fc16f9eef9": {
+      "name": "Borhan Manan",
+      "bio": "Universiti Poly-Tech Malaysia is the affiliation listed for Borhan Manan on the 2024 paper below."
+    },
+    "shazleen-saadon-91cb98379a45": {
+      "name": "Shazleen Saadon",
+      "bio": "Universiti Putra Malaysia is the affiliation listed for Shazleen Saadon on the 2024 paper below."
+    },
+    "al-baraa-abdulrahman-al-mekhlafi-7a899deab4f0": {
+      "name": "Al-Baraa Abdulrahman Al-Mekhlafi",
+      "bio": "Universiti Sains Islam Malaysia is the affiliation listed for Al-Baraa Abdulrahman Al-Mekhlafi on the 2024 paper below."
+    },
+    "gehad-mohammed-ahmed-naji-2bee134c3242": {
+      "name": "Gehad Mohammed Ahmed Naji",
+      "bio": "Universiti Sains Malaysia is the affiliation listed for Gehad Mohammed Ahmed Naji on the 2026 paper below."
+    },
+    "harizal-hamid-853f0c8a7572": {
+      "name": "Harizal Hamid",
+      "bio": "Universiti Selangor is the affiliation listed for Harizal Hamid on the 2021 paper below."
+    },
+    "oummar-nor-aman-bin-othman-7283137d3d18": {
+      "name": "Oummar Nor Aman bin Othman",
+      "bio": "Universiti Sultan Azlan Shah is the affiliation listed for Oummar Nor Aman bin Othman on the 2023 paper below."
+    },
+    "salmiah-jamal-mat-rosid-5a5eaf647ce0": {
+      "name": "Salmiah Jamal Mat Rosid",
+      "bio": "Universiti Sultan Zainal Abidin is the affiliation listed for Salmiah Jamal Mat Rosid on the 2019 paper below."
+    },
+    "nurul-aimi-ghazali-bd8846dafdec": {
+      "name": "Nurul Aimi Ghazali",
+      "bio": "Universiti Teknologi MARA is the affiliation listed for Nurul Aimi Ghazali on the 2025 paper below."
+    },
+    "mohamad-arif-ibrahim-a3104527d1a8": {
+      "name": "Mohamad Arif Ibrahim",
+      "bio": "Universiti Teknologi Malaysia is the affiliation listed for Mohamad Arif Ibrahim on the 2024 paper below."
+    },
+    "afzal-ahmed-soomro-65465cd7fbb8": {
+      "name": "Afzal Ahmed Soomro",
+      "bio": "Universiti Teknologi PETRONAS is the affiliation listed for Afzal Ahmed Soomro on the 2022 paper below."
+    },
+    "augustine-chioma-affam-6b5e614f5a5c": {
+      "name": "Augustine Chioma Affam",
+      "bio": "Universiti Teknologi Sarawak is the affiliation listed for Augustine Chioma Affam on the 2022 paper below."
+    },
+    "nadia-hartini-suhaimi-635a28805875": {
+      "name": "Nadia Hartini Suhaimi",
+      "bio": "Universiti Tenaga Nasional is the affiliation listed for Nadia Hartini Suhaimi on the 2025 paper below."
+    },
+    "nor-azura-othman-6518146e5cba": {
+      "name": "Nor Azura Othman",
+      "bio": "Universiti Tun Abdul Razak is the affiliation listed for Nor Azura Othman on the 2024 paper below."
+    },
+    "muhammad-mujtaba-asad-40a78ea913fe": {
+      "name": "Muhammad Mujtaba Asad",
+      "bio": "Universiti Tun Hussein Onn Malaysia is the affiliation listed for Muhammad Mujtaba Asad on the 2018 paper below."
+    },
+    "youhow-go-73dd4bedbd0c": {
+      "name": "You‐How Go",
+      "bio": "Universiti Tunku Abdul Rahman is the affiliation listed for You‐How Go on the 2023 paper below."
+    },
+    "mohd-h-ibrahim-dc64cece71bd": {
+      "name": "Mohd H Ibrahim",
+      "bio": "University College TATI is the affiliation listed for Mohd H Ibrahim on the 2021 paper below."
+    },
+    "h-p-s-abdul-khalil-5c7f32600fb3": {
+      "name": "H.P.S. Abdul Khalil",
+      "bio": "University Islam Melaka is the affiliation listed for H.P.S. Abdul Khalil on the 2026 paper below."
+    },
+    "osamah-yahya-alqohaly-c587f79af24c": {
+      "name": "Osamah Yahya Alqohaly",
+      "bio": "University of Cyberjaya is the affiliation listed for Osamah Yahya Alqohaly on the 2021 paper below."
+    },
+    "abdulhakim-y-a-belkhir-31ce064f0992": {
+      "name": "Abdulhakim Y A Belkhir",
+      "bio": "University of Geomatika Malaysia is the affiliation listed for Abdulhakim Y A Belkhir on the 2024 paper below."
+    },
+    "mei-kuen-wang-67fa32c12bd1": {
+      "name": "Mei Kuen Wang",
+      "bio": "University of Nottingham Malaysia is the affiliation listed for Mei Kuen Wang on the 2025 paper below."
+    },
+    "hong-yee-kek-0da2daf5a9f4": {
+      "name": "Hong Yee Kek",
+      "bio": "University of Reading Malaysia is the affiliation listed for Hong Yee Kek on the 2026 paper below."
+    },
+    "adrian-wei-yee-tan-f31b96c9530e": {
+      "name": "Adrian Wei-Yee Tan",
+      "bio": "University of Southampton Malaysia is the affiliation listed for Adrian Wei-Yee Tan on the 2024 paper below."
+    },
+    "priyanga-a-p-kailasanathan-4fa653049f4f": {
+      "name": "Priyanga A. /P. Kailasanathan",
+      "bio": "Widad University College is the affiliation listed for Priyanga A. /P. Kailasanathan on the 2026 paper below."
+    },
+    "p-siwayanan-de24f6bf9032": {
+      "name": "P Siwayanan",
+      "bio": "Xiamen University Malaysia is the affiliation listed for P Siwayanan on the 2020 paper below."
     }
   },
   "credit_overrides": {
-    "OG-P-D755771CD5EE21AE": {"M Z Mohamed": "zurix"}
+    "OG-P-D755771CD5EE21AE": {
+      "M Z Mohamed": "zurix"
+    }
   },
   "public_members": []
 }
