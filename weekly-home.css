@@ -64,12 +64,12 @@
 .weekly-lead-photo img { display: block; width: 100%; aspect-ratio: 2.4 / 1; object-fit: cover; }
 .weekly-lead-photo figcaption { margin-top: 6px; font-size: 14px; line-height: 1.5; color: #474742; }
 
-.company-coverage { margin-block: 36px; }
-.company-coverage h2 {
+.coverage-band { margin-block: 36px; }
+.coverage-band h2 {
   margin: 0 0 16px;
   font: normal clamp(1.5rem, 2.4vw, 1.95rem)/1.15 Georgia, serif;
 }
-.company-coverage ul {
+.coverage-logos {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -79,13 +79,13 @@
   border-block: 1px solid var(--line);
   background: #fff;
 }
-.company-coverage li {
+.coverage-logos > li {
   display: flex;
   justify-content: center;
-  flex: 0 0 calc(100% / 6);
+  flex: 0 0 var(--coverage-logo-width, calc(100% / 6));
   min-width: 0;
 }
-.company-coverage a {
+.coverage-logos a {
   display: flex;
   width: 100%;
   flex-direction: column;
@@ -95,21 +95,41 @@
   font-size: 13px;
   color: #454540;
 }
-.company-coverage img {
+.coverage-logos img {
   display: block;
   width: min(130px, 100%);
   height: 48px;
   object-fit: contain;
 }
-.company-coverage a:hover span, .company-coverage a:focus-visible span {
+.coverage-logos a:hover span, .coverage-logos a:focus-visible span {
   color: #943b0b;
   text-decoration: underline;
   text-underline-offset: 3px;
 }
 @media (max-width: 850px) {
-  .company-coverage li { flex-basis: 25%; }
+  .coverage-logos > li { flex-basis: 25%; }
 }
 @media (max-width: 540px) {
-  .company-coverage li { flex-basis: 50%; }
+  .coverage-logos > li { flex-basis: 50%; }
 }
 .weekly-lead-photo figcaption a { text-decoration: underline; text-underline-offset: 2px; }
+
+.university-coverage { --coverage-logo-width: 20%; }
+.university-coverage h2 { margin-bottom: 6px; }
+.coverage-intro { margin: 0 0 18px; color: var(--muted); }
+.university-coverage .coverage-logos a { gap: 10px; text-align: center; line-height: 1.35; }
+.university-coverage .coverage-logos img { height: 55px; }
+.more-institutions { border-bottom: 1px solid var(--line); }
+.more-institutions summary { width: fit-content; padding: 15px 0; cursor: pointer; font-weight: 600; }
+.more-institutions summary:focus-visible { outline: 3px solid var(--orange); outline-offset: 3px; }
+.more-institutions ul {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 245px), 1fr));
+  gap: 18px 26px;
+  padding: 4px 0 22px;
+  margin: 0;
+  list-style: none;
+}
+.more-institutions li a { display: block; width: fit-content; line-height: 1.4; }
+.more-institutions li a:hover, .more-institutions li a:focus-visible { text-decoration: underline; }
+.more-institutions .institution-author { margin-top: 3px; color: var(--muted); font-size: 13px; }
