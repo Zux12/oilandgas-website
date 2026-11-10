@@ -181,9 +181,7 @@
       "combustion",
       "lng"
     ],
-    "defaults": [
-      "Industry news"
-    ]
+    "defaults": []
   },
   {
     "id": "maintenance",
@@ -254,6 +252,28 @@
     ]
   },
   {
+    "id": "offshore",
+    "alt": "Shenzi production platform above the water in the Gulf of Mexico",
+    "credit": "Illustrative photo of the Shenzi platform, Gulf of Mexico, by BSEE",
+    "source": "https://commons.wikimedia.org/wiki/File:BHP-Shenzi_deepwater_offshore_production_platform_(51115227966).jpg",
+    "topics": [
+      "Industry news"
+    ],
+    "tags": [
+      "offshore",
+      "offshore production",
+      "offshore gas",
+      "offshore platform",
+      "offshore field",
+      "subsea",
+      "deepwater platform",
+      "deepwater drilling",
+      "floating production",
+      "fpso"
+    ],
+    "defaults": []
+  },
+  {
     "id": "desk",
     "alt": "Research papers on an editorial desk",
     "topics": [
@@ -269,7 +289,8 @@
     ],
     "defaults": [
       "Other",
-      "Technology across industries"
+      "Technology across industries",
+      "Industry news"
     ]
   }
 ]

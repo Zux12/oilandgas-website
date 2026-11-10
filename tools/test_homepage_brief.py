@@ -30,6 +30,22 @@ class HomepageBriefTest(unittest.TestCase):
         self.assertEqual(html, update_homepage(html, self.issue, entries, self.paths))
         self.assertNotIn('previous issue', html)
 
+    def test_lead_photo_follows_news_without_image_input(self):
+        self.issue['news'] = 'Partners plan an offshore gas development.'
+        html = update_homepage(self.template, self.issue, {}, {})
+        self.assertIn('/featured-images/offshore.jpg', html)
+        self.assertIn('Shenzi platform, Gulf of Mexico, by BSEE', html)
+        self.assertNotIn('AI-generated', html)
+        self.issue['headline'] = 'Teams deploy private 5G'
+        self.issue['news'] = 'A private 5G network links the site.'
+        next_issue = update_homepage(html, self.issue, {}, {})
+        self.assertIn('/featured-images/wireless.jpg', next_issue)
+        self.assertIn('AI-generated editorial illustration', next_issue)
+        self.assertNotIn('/featured-images/offshore.jpg', next_issue)
+        neutral = update_homepage(self.template, dict(self.issue, headline='Quarterly results',
+                                                      news='The reporting period has ended.'), {}, {})
+        self.assertIn('/featured-images/desk.jpg', neutral)
+
     def test_withdrawn_selection_and_empty_categories(self):
         alternate = dict(self.article, reference='A2', title='New field note')
         html = update_homepage(self.template, self.issue, {'A2': alternate}, {'A2': '/articles/two.html'})

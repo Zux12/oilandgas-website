@@ -19,3 +19,8 @@
   .weekly-grid { grid-template-columns: minmax(0, 1fr); }
   .weekly-picks { border: 0; border-top: 1px solid var(--line); padding: 18px 0 0; }
 }
+
+.weekly-lead-photo { margin: 16px 0; }
+.weekly-lead-photo img { display: block; width: 100%; aspect-ratio: 2.4 / 1; object-fit: cover; }
+.weekly-lead-photo figcaption { margin-top: 6px; font-size: 13px; line-height: 1.4; color: #595954; }
+.weekly-lead-photo figcaption a { text-decoration: underline; text-underline-offset: 2px; }
