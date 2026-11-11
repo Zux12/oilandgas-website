@@ -250,6 +250,42 @@ if (browseMode) {
     };
   });
   loadHighlights();
+  loadWeeklyPicks();
+}
+async function loadWeeklyPicks() {
+  try {
+    const response = await fetchWithTimeout(contentApi + 'weekly-picks');
+    if (!response.ok) return;
+    const rows = await response.json();
+    if (!Array.isArray(rows) || rows.length !== 2) return;
+    publishedPaths = await entryPathsReady;
+    const cards = [];
+    for (const slot of ['field', 'research']) {
+      const row = rows.find(item => item.slot === slot);
+      if (!row) return;
+      if (!row.entry) continue;
+      const article = node('article', '', 'weekly-pick');
+      const heading = document.createElement('h3');
+      const link = node('a', row.headline);
+      link.href = readingLink(row.entry);
+      heading.append(link);
+      article.append(node('p', row.label, 'eyebrow'), heading,
+        node('p', row.teaser), node('p', row.entry.byline, 'weekly-byline'));
+      cards.push(article);
+    }
+    const grid = document.querySelector('#weekly-brief .weekly-grid');
+    if (!grid) return;
+    let sidebar = grid.querySelector('.weekly-picks');
+    if (!sidebar) {
+      sidebar = node('div', '', 'weekly-picks');
+      grid.append(sidebar);
+    }
+    sidebar.replaceChildren(...cards);
+    sidebar.hidden = !cards.length;
+    grid.classList.toggle('news-only', !cards.length);
+  } catch {
+    // Keep the published weekly edition visible while its saved choices are unavailable.
+  }
 }
 async function loadHighlights() {
   try {

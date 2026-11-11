@@ -1,6 +1,6 @@
 import unittest
 
-from homepage_brief import END, START, update_homepage
+from homepage_brief import END, START, update_homepage, apply_manual_picks
 
 
 class HomepageBriefTest(unittest.TestCase):
@@ -58,6 +58,34 @@ class HomepageBriefTest(unittest.TestCase):
         self.issue['sources'][0]['url'] = 'javascript:example'
         with self.assertRaises(ValueError):
             update_homepage(self.template, self.issue, {}, {})
+
+    def test_manual_choices_survive_a_new_week_and_reset_to_the_brief(self):
+        alternate = dict(self.article, reference='A2', title='Selected by the editor')
+        entries = {'A1': self.article, 'A2': alternate, 'P1': self.paper}
+        rows = [{'slot': 'field', 'mode': 'manual', 'entry': alternate,
+                 'headline': alternate['title'], 'teaser': 'Selected summary'}]
+        issue = apply_manual_picks(self.issue, rows, entries)
+        paths = dict(self.paths, A2='/articles/two.html')
+        result = update_homepage(self.template, issue, entries, paths)
+        self.assertIn('Selected by the editor', result)
+        self.assertIn('Research question?', result)
+        self.assertNotIn('Featured field note', result)
+        self.assertEqual(self.issue['field']['reference'], 'A1')
+        # New weekly defaults are applied locally; API defaults from an older edition are ignored.
+        next_issue = dict(self.issue, edition='2026-11-16')
+        self.assertEqual(apply_manual_picks(next_issue, rows, entries)['field']['reference'], 'A2')
+        reset = apply_manual_picks(next_issue, [dict(rows[0], mode='weekly')], entries)
+        self.assertEqual(reset['field']['reference'], 'A1')
+
+    def test_manual_pick_can_use_either_published_content_type(self):
+        rows = [{'slot': 'field', 'mode': 'manual', 'entry': self.paper,
+                 'headline': 'A paper chosen for the field', 'teaser': 'A practical research finding'}]
+        entries = {'A1': self.article, 'P1': self.paper}
+        issue = apply_manual_picks(self.issue, rows, entries)
+        result = update_homepage(self.template, issue, entries, self.paths)
+        self.assertIn('A paper chosen for the field', result)
+        self.assertNotIn('Featured field note', result)
+        self.assertEqual(apply_manual_picks(self.issue, rows, {})['field'], self.issue['field'])
 
 
 if __name__ == '__main__':

@@ -19,6 +19,7 @@ def source_link(source):
 
 
 def work_card(label, kind, pick, entries, paths):
+    kind = pick.get('kind', kind)
     item = entries.get(pick['reference'])
     if item and item['kind'] == kind:
         title = pick.get('headline') or item['title']
@@ -35,6 +36,22 @@ def work_card(label, kind, pick, entries, paths):
 <p class="eyebrow">{escape(label)}</p><h3><a href="{path}">{escape(title)}</a></h3>
 <p>{escape(teaser)}</p><p class="weekly-byline">{escape(item['byline'])}</p>
 </article>'''
+
+
+def apply_manual_picks(issue, rows, entries):
+    """Keep the weekly brief intact while honouring choices saved in the editor."""
+    if not isinstance(rows, list):
+        raise ValueError('Incomplete weekly selections response')
+    result = dict(issue)
+    for row in rows:
+        slot, entry = row.get('slot'), row.get('entry') or {}
+        if slot not in ('field', 'research') or row.get('mode') != 'manual':
+            continue
+        item = entries.get(entry.get('reference'))
+        if item and item['kind'] == entry.get('kind'):
+            result[slot] = {'reference': item['reference'], 'kind': item['kind'],
+                            'headline': row['headline'], 'teaser': row['teaser']}
+    return result
 
 
 def lead_figure(issue):

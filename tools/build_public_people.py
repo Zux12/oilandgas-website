@@ -12,7 +12,7 @@ from urllib.parse import quote, urlencode, urlsplit, parse_qs
 from urllib.request import urlopen
 import xml.etree.ElementTree as ET
 
-from homepage_brief import update_homepage
+from homepage_brief import update_homepage, apply_manual_picks
 
 ROOT = Path(__file__).resolve().parents[1]
 SITE = 'https://oilandgas.eu.com'
@@ -342,6 +342,8 @@ if __name__ == '__main__':
     cfg = json.loads((ROOT / 'tools/public-people.json').read_text())
     outputs = make_outputs(data, cfg)
     issue = json.loads((ROOT / 'editorial/weekly-brief.json').read_text())
+    with urlopen(FEED.rsplit('/', 1)[0] + '/weekly-picks', timeout=30) as response:
+        issue = apply_manual_picks(issue, json.load(response), data)
     outputs['index.html'] = update_homepage((ROOT / 'index.html').read_text(), issue, data,
                                            json.loads(outputs[PATHS]))
     save(outputs)
