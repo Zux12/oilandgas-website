@@ -213,7 +213,34 @@ def credit_link(label, links):
     return f'<a href="{escape(path)}">{escape(label)}</a>' if path else escape(label)
 
 
-def render_work(entry, credit, path):
+def related_work(entry, entries, paths, limit=3):
+    """Suggest only published entries with the same meaningful topic."""
+    topic = str(entry.get('topic') or '').strip().casefold()
+    if not topic or topic in ('other', 'all'):
+        return ''
+    matches = [item for item in entries.values()
+               if item['reference'] != entry['reference']
+               and str(item.get('topic') or '').strip().casefold() == topic
+               and item['reference'] in paths]
+    matches.sort(key=lambda item: (
+        item['kind'] == entry['kind'],
+        str(item.get('publishedAt') or ''),
+        item['reference']), reverse=True)
+    if not matches:
+        return ''
+    rows = []
+    for item in matches[:limit]:
+        kind = 'Research paper' if item['kind'] == 'publications' else 'Article'
+        rows.append('<li><span class="related-kind">' + kind + '</span>'
+                    '<h3><a href="' + escape(paths[item['reference']], quote=True) + '">'
+                    + escape(item['title']) + '</a></h3></li>')
+    return ('<section class="related-work" aria-labelledby="related-heading">'
+            '<h2 id="related-heading">Related publications</h2>'
+            '<p>More published work in ' + escape(entry['topic']) + '</p>'
+            '<ul class="related-list">' + ''.join(rows) + '</ul></section>')
+
+
+def render_work(entry, credit, path, related=''):
     paper = entry['kind'] == 'publications'
     parts = re.split(r'(,\s*|;\s*|\s+(?:and|&)\s+)', entry['byline'], flags=re.I)
     byline = ''.join(credit_link(part, credit['authors']) for part in parts)
@@ -242,6 +269,8 @@ def render_work(entry, credit, path):
         label = 'Read original paper' if paper else 'Read original source'
         main.append(f'<p><a href="{escape(source)}" rel="noopener noreferrer">{label}</a></p>')
     main.append('</article>')
+    if related:
+        main.append(related)
     page = shell(entry['title'], summary or entry['title'], path, '\n'.join(main), entry=entry)
     return page.replace('</body>', '<script src="/publication-actions.js" defer></script></body>')
 
@@ -317,7 +346,8 @@ def make_outputs(entries, config, root=ROOT):
     outputs = {PATHS: json.dumps(paths, indent=2, ensure_ascii=False) + '\n'}
     for ref, item in entries.items():
         path = paths[ref]
-        outputs[path[1:]] = render_work(item, credits[ref], path)
+        outputs[path[1:]] = render_work(item, credits[ref], path,
+                                            related_work(item, entries, paths))
     people = sorted(works, key=lambda i: (key(names[i]), i))
     member_ids = {m['id'] for m in members}
     for identifier in people:
