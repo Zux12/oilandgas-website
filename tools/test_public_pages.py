@@ -29,6 +29,8 @@ class PublicPagesTest(unittest.TestCase):
             self.assertIn('A. Rahman', directory)
             page = outputs[path[1:]]
             self.assertIn('Literal &lt;tag&gt;.', page)
+            self.assertIn('data-copy-link', page)
+            self.assertIn('src="/publication-actions.js"', page)
             self.assertIn('property="og:type" content="article"', page)
             self.assertIn('property="og:url"', page)
             self.assertIn('"@type": "Article"', page)
@@ -79,6 +81,8 @@ class PublicPagesTest(unittest.TestCase):
             self.assertIn('href="https://example.org/paper"', outputs[url[1:]])
             self.assertIn('"@type": "ScholarlyArticle"', outputs[url[1:]])
             self.assertIn('"sameAs": "https://example.org/paper"', outputs[url[1:]])
+            self.assertIn('data-copy-link', outputs[url[1:]])
+
 
             site.save(outputs, root)
             self.assertEqual(outputs, site.make_outputs({'OG-P-1234': paper}, cfg, root))
