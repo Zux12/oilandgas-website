@@ -3,7 +3,7 @@ name: Update publication sitemap
 on:
   push:
     branches: [main]
-    paths: ['.github/workflows/update-sitemap.yml', 'tools/build_public_people.py', 'tools/test_public_pages.py', 'tools/homepage_brief.py', 'tools/select_lead_photo.mjs', 'featured-photos.json', 'featured-photo.mjs', 'featured-images/**', 'tools/test_homepage_brief.py', 'editorial/weekly-brief.json', 'tools/public-people.json', 'm-zurix-mohamed.html']
+    paths: ['.github/workflows/update-sitemap.yml', 'tools/build_public_people.py', 'tools/test_public_pages.py', 'tools/homepage_brief.py', 'tools/select_lead_photo.mjs', 'featured-photos.json', 'featured-photo.mjs', 'featured-images/**', 'tools/test_homepage_brief.py', 'editorial/weekly-brief.json', 'editorial/malaysia-research-coverage-*.json', 'tools/public-people.json', 'm-zurix-mohamed.html']
   workflow_dispatch:
   schedule:
     - cron: '17 2 * * *'
