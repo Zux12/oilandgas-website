@@ -1117,6 +1117,14 @@
     },
     "shared": {}
   },
+  "OG-P-MY0F71B706": {
+    "authors": {
+      "Mokhtar Abdullah": "/authors/mokhtar-abdullah-60029991a10c.html",
+      "Sariwati Mohd Sharif": "/authors/sariwati-mohd-sharif-0e659bffbb0b.html",
+      "Thevarmuthes Varatharaju": "/authors/thevarmuthes-varatharaju-3c919f236016.html"
+    },
+    "shared": {}
+  },
   "OG-P-MY16D4A160": {
     "authors": {
       "Farahdila Kadirkhan": "/authors/farahdila-kadirkhan-141af0dfc0ca.html",
@@ -1139,12 +1147,36 @@
     },
     "shared": {}
   },
+  "OG-P-MY3E879F18": {
+    "authors": {
+      "Kathiresan Sathasivam": "/authors/kathiresan-sathasivam-5c868289a8e4.html",
+      "Mas Rosemal Hakim Mas Haris": "/authors/mas-rosemal-hakim-mas-haris-f5c2515520a9.html"
+    },
+    "shared": {}
+  },
   "OG-P-MY3F7116FF": {
     "authors": {
       "Ahmad Shamsul Izwan Ismail": "/authors/ahmad-shamsul-izwan-ismail-a55e5291e70a.html",
       "Issham Ismail": "/authors/issham-ismail-fbe3212b3cec.html",
       "Muhamad Khairul Amin Muhtar": "/authors/muhamad-khairul-amin-muhtar-0dfa6d6ed811.html",
       "Nur Suriani Mamat": "/authors/nur-suriani-mamat-de7cc8340f0d.html"
+    },
+    "shared": {}
+  },
+  "OG-P-MY706BD72D": {
+    "authors": {
+      "Dzul Hadzwan Husaini": "/authors/dzul-hadzwan-husaini-4821e7a646a2.html",
+      "Ghee-Thean Lim": "/authors/ghee-thean-lim-9df190f9e023.html",
+      "Hooi Hooi Lean": "/authors/hooi-hooi-lean-81b17d8e32ab.html",
+      "Wen Hui Lee": "/authors/wen-hui-lee-1757d3f3c025.html"
+    },
+    "shared": {}
+  },
+  "OG-P-MYD36F8831": {
+    "authors": {
+      "Balachandar A/L V Rajoo": "/authors/balachandar-a-l-v-rajoo-c42e0ac4ac77.html",
+      "Juhairi Aris bin Muhamad Shuhili": "/authors/juhairi-aris-bin-muhamad-shuhili-0b328de31f14.html",
+      "Syahmi Firdaus bin Suhaimi": "/authors/syahmi-firdaus-bin-suhaimi-d16013c33a2d.html"
     },
     "shared": {}
   },
@@ -1163,6 +1195,17 @@
       "Issham Ismail": "/authors/issham-ismail-fbe3212b3cec.html",
       "Mohd Fauzi Hamid": "/authors/mohd-fauzi-hamid-8a49a4aecdd3.html",
       "Nor Fatihah Abdul Majid": "/authors/nor-fatihah-abdul-majid-a65c83b58830.html"
+    },
+    "shared": {}
+  },
+  "OG-P-MYEE5AECBF": {
+    "authors": {
+      "Dong Ling Tong": "/authors/dong-ling-tong-8db83e437a37.html",
+      "Kamarul Arifin Ahmad": "/authors/kamarul-arifin-ahmad-ec85ebf66962.html",
+      "Kee Shan Goh": "/authors/kee-shan-goh-e227f799966c.html",
+      "Lip Kean Moey": "/authors/lip-kean-moey-f45381e24cd3.html",
+      "Nor Mariah Adam": "/authors/nor-mariah-adam-fadc8bf71a27.html",
+      "Perk Lin Chong": "/authors/perk-lin-chong-07d62b1d4c32.html"
     },
     "shared": {}
   }
