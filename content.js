@@ -38,6 +38,24 @@ function card(item, paperLayout, showKind = false) {
   const label = showKind ? item.topic + ' · ' + (item.kind === 'publications' ? 'Shared paper' : 'Article') : item.topic;
   content.append(node('span', item.crossIndustry ? label + ' · ' + collectionName : label, 'eyebrow'), heading,
     node('p', excerpt(item.summary)), node('small', item.byline, 'meta'));
+  if (browseMode) {
+    const details = node('p', '', 'catalogue-details');
+    const date = item.publishedAt ? new Date(item.publishedAt) : null;
+    if (date && !Number.isNaN(date.valueOf())) {
+      const time = node('time', 'Listed ' + date.toLocaleDateString('en-GB', {day: 'numeric', month: 'short', year: 'numeric'}));
+      time.dateTime = date.toISOString().slice(0, 10);
+      details.append(time);
+    }
+    if (item.kind === 'publications' && typeof item.source === 'string' && /^https?:\/\//i.test(item.source)) {
+      const original = node('a', 'Original source ↗');
+      original.href = item.source;
+      original.rel = 'noopener noreferrer';
+      original.target = '_blank';
+      if (details.childNodes.length) details.append(' · ');
+      details.append(original);
+    }
+    if (details.childNodes.length) content.append(details);
+  }
   if (paperLayout) article.append(node('span', '▤', 'paper-icon'));
   article.append(content);
   if (paperLayout) {
@@ -190,15 +208,6 @@ search.addEventListener('input', () => {
   page = 0;
   debounce = setTimeout(() => {
   refresh();
-
-  const results = document.getElementById(
-    browseMode ? 'browse-title' : 'latest'
-  );
-
-  results?.scrollIntoView({
-    behavior: 'smooth',
-    block: 'start'
-  });
 }, 500);
 });
 if (browseMode) {
@@ -209,6 +218,21 @@ if (browseMode) {
   }
   if (![...select.options].some(option => option.value === selectedTopic)) selectedTopic = 'All';
   select.value = selectedTopic;
+  const clearFilters = document.getElementById('clear-filters');
+  const updateClear = () => { if (clearFilters) clearFilters.hidden = selectedTopic === 'All' && !search.value.trim(); };
+  if (clearFilters) clearFilters.onclick = () => {
+    clearTimeout(debounce);
+    selectedTopic = 'All';
+    select.value = 'All';
+    search.value = '';
+    page = 0;
+    updateClear();
+    refresh();
+    search.focus();
+  };
+  search.addEventListener('input', updateClear);
+  select.addEventListener('change', updateClear);
+  updateClear();
   document.getElementById('browse-title').textContent = kind === 'articles' ? 'Articles' : 'Publications';
   select.onchange = () => {
     clearTimeout(debounce);
