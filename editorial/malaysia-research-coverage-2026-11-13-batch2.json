@@ -1,0 +1,42 @@
+{
+  "date": "2026-11-13",
+  "batch": "malaysia-university-directory-2026-11-13-batch2",
+  "description": "Public scholarly citations from five additional institutions; author attribution is not membership, sponsorship or endorsement. Source PDFs and DOI links belong to the respective publishers.",
+  "entries": [
+    {
+      "institution": "Malaysia University of Science and Technology",
+      "title": "In-depth Statistical Analysis and Event-Based Insights on Oil Prices (1968-2022)",
+      "reference": "OG-P-MYD36F8831",
+      "source": "https://must.edu.my/wp-content/uploads/2025/07/NEW-ICDI-7.1-2024_Conference-eProceedings_251124.pdf",
+      "permanentPath": "/papers/in-depth-statistical-analysis-and-event-based-insights-on-oil-pri--og-p-myd36f8831.html"
+    },
+    {
+      "institution": "AIMST University",
+      "title": "Adsorption Kinetics and Capacity of Fatty Acid-Modified Banana Trunk Fibers for Oil in Water",
+      "reference": "OG-P-MY3E879F18",
+      "source": "https://doi.org/10.1007/s11270-010-0395-z",
+      "permanentPath": "/papers/adsorption-kinetics-and-capacity-of-fatty-acid-modified-banana-tr--og-p-my3e879f18.html"
+    },
+    {
+      "institution": "i-CATS University College",
+      "title": "The role of critical mineral prices and geopolitical risk in shaping renewable energy poverty",
+      "reference": "OG-P-MY706BD72D",
+      "source": "https://doi.org/10.1007/s43621-025-01429-w",
+      "permanentPath": "/papers/the-role-of-critical-mineral-prices-and-geopolitical-risk-in-shap--og-p-my706bd72d.html"
+    },
+    {
+      "institution": "First City University College",
+      "title": "A Review on Current Energy Usage and Potential of Sustainable Energy in Southeast Asia Countries",
+      "reference": "OG-P-MYEE5AECBF",
+      "source": "https://jssm.umt.edu.my/volume-15-number-2-february-2020/",
+      "permanentPath": "/papers/a-review-on-current-energy-usage-and-potential-of-sustainable-ene--og-p-myee5aecbf.html"
+    },
+    {
+      "institution": "Meritus University",
+      "title": "The Sustainability of Net Zero Emissions Practices in the Malaysian Maritime Sector: A Conceptual Framework",
+      "reference": "OG-P-MY0F71B706",
+      "source": "https://ijbmcjournals.org/wp-content/uploads/2025/12/Vol-5-No-50-2025.pdf",
+      "permanentPath": "/papers/the-sustainability-of-net-zero-emissions-practices-in-the-malaysi--og-p-my0f71b706.html"
+    }
+  ]
+}
