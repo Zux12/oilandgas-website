@@ -1,0 +1,44 @@
+{
+  "date": "2026-11-13",
+  "description": "Verified third-party research citations by authors affiliated with Malaysian research institutions. These are public bibliographic attributions, not claimed memberships, endorsements, or republished manuscripts.",
+  "database": "oilandgas",
+  "collection": "publications",
+  "importBatch": "malaysia-university-directory-2026-11-13",
+  "works": [
+    {
+      "reference": "OG-P-MYDB00223A",
+      "doi": "10.11113/jt.v70.3471",
+      "institution": "Universiti Teknologi Malaysia",
+      "title": "The Use of Reflection Mode Ultrasonic Transceiver Sensor in Pipeline Inspection Guage to Monitor Pipeline Internal Corrosion",
+      "source": "https://journals.utm.my/jurnalteknologi/article/view/3471"
+    },
+    {
+      "reference": "OG-P-MYE593AE62",
+      "doi": "10.11113/jt.v78.7563",
+      "institution": "Universiti Teknologi Malaysia",
+      "title": "USING DURIAN RIND AS BRIDGING MATERIAL TO OVERCOME FLUID LOSS AND LOST CIRCULATION PROBLEMS IN DRILLING OPERATIONS",
+      "source": "https://journals.utm.my/jurnalteknologi/article/view/7563"
+    },
+    {
+      "reference": "OG-P-MY3F7116FF",
+      "doi": "10.11113/jt.v68.2070",
+      "institution": "Universiti Teknologi Malaysia / PETRONAS Carigali",
+      "title": "Improving Shale Inhibitive Performance using Methyl Glucoside (MEG) in Potassium Chloride Mud",
+      "source": "https://journals.utm.my/jurnalteknologi/article/view/2070"
+    },
+    {
+      "reference": "OG-P-MY222E089B",
+      "doi": "10.24191/mjcet.v7i2.860",
+      "institution": "Universiti Teknologi MARA",
+      "title": "Advanced logging technologies in reservoir crossflow detection",
+      "source": "https://ir.uitm.edu.my/id/eprint/107377/1/107377.pdf"
+    },
+    {
+      "reference": "OG-P-MY16D4A160",
+      "doi": "10.11113/mjfas.v19n2.2841",
+      "institution": "Universiti Teknologi MARA / PETRONAS Research",
+      "title": "Prospect of Direct Dimethyl Ether Production from CO2: Reactor Design Development",
+      "source": "https://mjfas.utm.my/index.php/mjfas/article/view/2841"
+    }
+  ]
+}
