@@ -1,0 +1,55 @@
+{
+  "date": "2026-11-13",
+  "batch": "malaysia-author-expansion-2026-11-13-batch3",
+  "description": "Six verified journal citations with attributed authors; bibliographic coverage only, not community membership, author endorsement or reproduced copyrighted full text.",
+  "entries": [
+    {
+      "reference": "OG-P-MY41C69239",
+      "doi": "10.11113/mjce.v37.24088",
+      "publisher": "Malaysian Journal of Civil Engineering",
+      "title": "VALIDATION FOR FINITE ELEMENT ANALYSIS OF FREE-SPANNING SUBSEA PIPELINE USING THEORETICAL FORMULA",
+      "institution": "Universiti Teknologi Malaysia",
+      "source": "https://doi.org/10.11113/mjce.v37.24088"
+    },
+    {
+      "reference": "OG-P-MY3D3A97FE",
+      "doi": "10.11113/jurnalteknologi.v86.20994",
+      "publisher": "Jurnal Teknologi",
+      "title": "DEVELOPMENT OF IMAGE RECONSTRUCTION FOR DETECTING STATIC OIL-GAS REGIMES USING INVASIVE ELECTRICAL CAPACITANCE TOMOGRAPHY IN STEEL PIPE APPLICATION – AN INITIAL STUDY",
+      "institution": "Universiti Malaysia Pahang Al-Sultan Abdullah",
+      "source": "https://doi.org/10.11113/jurnalteknologi.v86.20994"
+    },
+    {
+      "reference": "OG-P-MYC3FA404F",
+      "doi": "10.11113/mjce.v22.15804",
+      "publisher": "Malaysian Journal of Civil Engineering",
+      "title": "PICA: PIPELINE INTEGRATED CORROSION ASSESSMENT TOOL FOR STRUCTURE INTEGRITY",
+      "institution": "Universiti Teknologi Malaysia / PETRONAS Gas",
+      "source": "https://doi.org/10.11113/mjce.v22.15804"
+    },
+    {
+      "reference": "OG-P-MY7E5970A8",
+      "doi": "10.11113/jt.v73.4239",
+      "publisher": "Jurnal Teknologi",
+      "title": "Early Detection of Pipeline Leakage Using Ultrasonic Sensor",
+      "institution": "Universiti Teknologi Malaysia",
+      "source": "https://doi.org/10.11113/jt.v73.4239"
+    },
+    {
+      "reference": "OG-P-MYA02A94DB",
+      "doi": "10.11113/mjce.v28.15998",
+      "publisher": "Malaysian Journal of Civil Engineering",
+      "title": "EFFECT OF PUTTY PROPERTIES IN REPAIRING CORRODED PIPELINE: A FINITE ELEMENT ANALYSIS",
+      "institution": "Universiti Teknologi Malaysia / Universiti Malaysia Pahang",
+      "source": "https://doi.org/10.11113/mjce.v28.15998"
+    },
+    {
+      "reference": "OG-P-MYCBC2EF58",
+      "doi": "10.11113/jt.v79.9339",
+      "publisher": "Jurnal Teknologi",
+      "title": "STRENGTH DEVELOPMENT OF EPOXY GROUTS FOR PIPELINE REHABILITATION",
+      "institution": "Universiti Teknologi Malaysia / Universiti Malaysia Pahang",
+      "source": "https://doi.org/10.11113/jt.v79.9339"
+    }
+  ]
+}
