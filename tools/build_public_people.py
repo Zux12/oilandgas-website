@@ -306,8 +306,16 @@ def make_outputs(entries, config, root=ROOT):
     elif 'zurix' in works:
         raise ValueError('The existing indexed Zurix page is missing')
     rows = [f'<li><a href="{urls[i]}">{escape(names[i])}</a></li>' for i in people]
+    directory = ('<h1>Authors &amp; contributors</h1>'
+                 '<div class="directory-tools"><label for="author-search">Find an author or contributor</label>'
+                 '<input id="author-search" type="search" autocomplete="off" '
+                 'placeholder="Search by name" aria-controls="author-directory" maxlength="160">'
+                 '<p id="author-count" role="status" aria-live="polite"></p></div>'
+                 '<ul class="directory" id="author-directory">' + ''.join(rows) + '</ul>'
+                 '<p id="author-empty" hidden>No matching authors. Try a different name.</p>'
+                 '<script src="/author-directory.js" defer></script>')
     outputs['authors/index.html'] = shell('Authors & contributors', 'Find authors, contributors and their published work on Oil & Gas.',
-                                          '/authors/', '<h1>Authors &amp; contributors</h1><ul class="directory">' + ''.join(rows) + '</ul>')
+                                          '/authors/', directory)
     outputs['authors/credits.json'] = json.dumps(credits, ensure_ascii=False, sort_keys=True, indent=2) + '\n'
     if len(indexable) > 50000:
         raise ValueError('The sitemap must now be split into multiple files')
