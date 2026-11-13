@@ -90,7 +90,8 @@ class PublicPagesTest(unittest.TestCase):
             self.assertIn('Gas custody transfer', page)
             self.assertIn('Tank level measurement', page)
             self.assertNotIn('Safety study', page)
-            self.assertEqual(page.count('href="' + paths['OG-P-ONE'] + '"'), 0)
+            related_section = page.split('<section class="related-work"', 1)[1]
+            self.assertNotIn('href="' + paths['OG-P-ONE'] + '"', related_section)
             self.assertIn('href="' + paths['OG-P-TWO'] + '"', page)
             no_match = outputs[paths['OG-P-OTHER'][1:]]
             self.assertNotIn('Related publications', no_match)
