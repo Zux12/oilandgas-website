@@ -133,3 +133,8 @@
 .more-institutions li a { display: block; width: fit-content; line-height: 1.4; }
 .more-institutions li a:hover, .more-institutions li a:focus-visible { text-decoration: underline; }
 .more-institutions .institution-author { margin-top: 3px; color: var(--muted); font-size: 13px; }
+
+/* Universities in our coverage may be listed before a paper is available. */
+.more-institutions .institution-listed { display: flex; flex-direction: column; gap: 3px; }
+.more-institutions .institution-name { font-weight: 600; line-height: 1.4; }
+.more-institutions .institution-note { color: var(--muted); font-size: 12px; line-height: 1.4; }
