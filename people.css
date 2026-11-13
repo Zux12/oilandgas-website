@@ -15,3 +15,12 @@
 .people a:hover { color: #943b0b; }
 .entry { overflow-wrap: anywhere; }
 .entry .article-text { white-space: pre-line; }
+
+/* Generated author directory search */
+.directory-tools { margin: 4px 0 24px; padding: 18px 20px; background: #f0eee7; border-left: 3px solid var(--orange); }
+.directory-tools label { display: block; font-weight: 700; font-size: 14px; margin-bottom: 10px; }
+.directory-tools input { display: block; width: 100%; max-width: 560px; min-height: 44px; padding: 11px 13px; border: 1px solid #8d8b84; border-radius: 2px; background: #fff; font-size: 16px; color: var(--ink); }
+.directory-tools input:focus-visible { outline: 3px solid var(--orange); outline-offset: 2px; }
+.directory-tools p { color: #4d4c48; font-size: 13px; margin: 12px 0 0; }
+.directory li[hidden], #author-empty[hidden] { display: none !important; }
+#author-empty { padding: 20px 0; font-size: 15px; }
