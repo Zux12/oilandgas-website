@@ -65,6 +65,37 @@ class PublicPagesTest(unittest.TestCase):
             self.assertNotIn(site.SITE + path, withdrawn['sitemap.xml'])
             self.assertNotIn(path, withdrawn[site.PATHS])
 
+    def test_related_works_are_topic_matched_and_never_self_linked(self):
+        cfg = {'profiles': {}, 'public_members': [], 'credit_overrides': {}}
+        entries = {
+            'OG-P-ONE': {'kind': 'publications', 'reference': 'OG-P-ONE',
+                         'title': 'Meter calibration', 'byline': 'A. Author',
+                         'topic': 'Measurement', 'publishedAt': '2026-10-01'},
+            'OG-P-TWO': {'kind': 'publications', 'reference': 'OG-P-TWO',
+                         'title': 'Gas custody transfer', 'byline': 'B. Author',
+                         'topic': 'Measurement', 'publishedAt': '2026-10-02'},
+            'OG-A-THREE': {'kind': 'articles', 'reference': 'OG-A-THREE',
+                           'title': 'Tank level measurement', 'byline': 'C. Author',
+                           'topic': 'Measurement', 'body': 'Text'},
+            'OG-P-OTHER': {'kind': 'publications', 'reference': 'OG-P-OTHER',
+                            'title': 'Safety study', 'byline': 'D. Author',
+                            'topic': 'Safety'}
+        }
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            outputs = site.make_outputs(entries, cfg, root)
+            paths = json.loads(outputs[site.PATHS])
+            page = outputs[paths['OG-P-ONE'][1:]]
+            self.assertIn('Related publications', page)
+            self.assertIn('Gas custody transfer', page)
+            self.assertIn('Tank level measurement', page)
+            self.assertNotIn('Safety study', page)
+            related_section = page.split('<section class="related-work"', 1)[1]
+            self.assertNotIn('href="' + paths['OG-P-ONE'] + '"', related_section)
+            self.assertIn('href="' + paths['OG-P-TWO'] + '"', page)
+            no_match = outputs[paths['OG-P-OTHER'][1:]]
+            self.assertNotIn('Related publications', no_match)
+
     def test_curated_profile_reuses_published_links(self):
         cfg = {'profiles': {'zurix': {'name': 'M. Zurix Mohamed'}}, 'public_members': [],
                'credit_overrides': {}}
