@@ -24,3 +24,12 @@
 .directory-tools p { color: #4d4c48; font-size: 13px; margin: 12px 0 0; }
 .directory li[hidden], #author-empty[hidden] { display: none !important; }
 #author-empty { padding: 20px 0; font-size: 15px; }
+
+/* Readable article controls and publication date */
+.publication-date { color: #54534d; font-size: 14px; margin: 4px 0 12px; }
+.publication-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; margin: 12px 0 20px; }
+.copy-publication-link { color: #191919; background: #fff; border: 1px solid #8e8b83; border-radius: 3px; padding: 10px 16px; min-height: 44px; font: 600 14px Arial, sans-serif; cursor: pointer; }
+.copy-publication-link:hover { background: #fff1e9; border-color: var(--orange); }
+.copy-publication-link:focus-visible { outline: 3px solid var(--orange); outline-offset: 3px; }
+.copy-link-result { font-size: 13px; color: #4c4b47; overflow-wrap: anywhere; }
+.copy-link-fallback { display: block; width: min(70vw, 420px); max-width: 100%; border: 1px solid #888; padding: 7px; margin-top: 6px; }

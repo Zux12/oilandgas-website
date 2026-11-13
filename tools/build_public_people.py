@@ -2,6 +2,7 @@
 import hashlib
 import json
 import re
+import time
 import unicodedata
 from collections import defaultdict
 from concurrent.futures import ThreadPoolExecutor
@@ -10,6 +11,7 @@ from html.parser import HTMLParser
 from pathlib import Path
 from urllib.parse import quote, urlencode, urlsplit, parse_qs
 from urllib.request import urlopen
+from urllib.error import URLError
 import xml.etree.ElementTree as ET
 
 from homepage_brief import update_homepage, apply_manual_picks
@@ -43,14 +45,25 @@ def slug(name):
     return re.sub(r'[^a-z0-9]+', '-', plain.lower()).strip('-')[:65] or 'author'
 
 
+def get_json(url):
+    # Retry brief network outages; fail closed so incomplete builds cannot overwrite public pages.
+    for attempt in range(3):
+        try:
+            with urlopen(url, timeout=30) as response:
+                return json.load(response)
+        except (URLError, TimeoutError):
+            if attempt == 2:
+                raise
+            time.sleep(2 ** attempt)
+
+
 def load_entries():
     entries = {}
     for kind in ('articles', 'publications'):
         page = 0
         while True:
             query = urlencode({'kind': kind, 'page': page, 'limit': 24})
-            with urlopen(FEED + '?' + query, timeout=30) as response:
-                listing = json.load(response)
+            listing = get_json(FEED + '?' + query)
             items, more = listing['items'], listing['more']
             if not isinstance(items, list) or not isinstance(more, bool) or (more and len(items) != 24):
                 raise ValueError('Incomplete public listing')
@@ -74,8 +87,7 @@ def load_entries():
 
 def load_article(listed):
     endpoint = FEED.rsplit('/', 1)[0] + '/published/articles/' + quote(listed['reference'], safe='')
-    with urlopen(endpoint, timeout=30) as response:
-        article = json.load(response)
+    article = get_json(endpoint)
     if (article.get('reference') != listed['reference'] or article.get('kind') != 'articles'
             or not isinstance(article.get('byline'), str) or not article.get('title')
             or 'body' not in article or not isinstance(article['body'], (str, type(None)))):
@@ -210,6 +222,10 @@ def render_work(entry, credit, path):
     tags = ' · '.join(escape(t) for t in [label, *topics] if t)
     main = [f'<article class="entry"><p class="eyebrow">{tags}</p>',
             f'<h1>{escape(entry["title"])}</h1>', f'<p class="byline">{byline}</p>']
+    date = str(entry.get('publishedAt') or '')[:10]
+    if re.fullmatch(r'\d{4}-\d{2}-\d{2}', date):
+        main.append(f'<p class="publication-date">Published on Oil &amp; Gas: <time datetime="{date}">{date}</time></p>')
+    main.append('<div class="publication-actions"><button type="button" class="copy-publication-link" data-copy-link>Copy page link</button><span class="copy-link-result" role="status" aria-live="polite"></span></div>')
     if entry.get('sharedBy'):
         main.append('<p>Shared by ' + credit_link(entry['sharedBy'], credit['shared']) + '</p>')
     summary = entry.get('summary') or ''
@@ -226,7 +242,8 @@ def render_work(entry, credit, path):
         label = 'Read original paper' if paper else 'Read original source'
         main.append(f'<p><a href="{escape(source)}" rel="noopener noreferrer">{label}</a></p>')
     main.append('</article>')
-    return shell(entry['title'], summary or entry['title'], path, '\n'.join(main), entry=entry)
+    page = shell(entry['title'], summary or entry['title'], path, '\n'.join(main), entry=entry)
+    return page.replace('</body>', '<script src="/publication-actions.js" defer></script></body>')
 
 
 def make_outputs(entries, config, root=ROOT):
@@ -372,8 +389,7 @@ if __name__ == '__main__':
     cfg = json.loads((ROOT / 'tools/public-people.json').read_text())
     outputs = make_outputs(data, cfg)
     issue = json.loads((ROOT / 'editorial/weekly-brief.json').read_text())
-    with urlopen(FEED.rsplit('/', 1)[0] + '/weekly-picks', timeout=30) as response:
-        issue = apply_manual_picks(issue, json.load(response), data)
+    issue = apply_manual_picks(issue, get_json(FEED.rsplit('/', 1)[0] + '/weekly-picks'), data)
     outputs['index.html'] = update_homepage((ROOT / 'index.html').read_text(), issue, data,
                                            json.loads(outputs[PATHS]))
     save(outputs)
