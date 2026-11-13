@@ -21,6 +21,12 @@ class PublicPagesTest(unittest.TestCase):
 
             outputs = build({item['reference']: item})
             path = json.loads(outputs[site.PATHS])[item['reference']]
+            directory = outputs['authors/index.html']
+            self.assertIn('id="author-search"', directory)
+            self.assertIn('id="author-directory"', directory)
+            self.assertIn('id="author-count"', directory)
+            self.assertIn('src="/author-directory.js"', directory)
+            self.assertIn('A. Rahman', directory)
             page = outputs[path[1:]]
             self.assertIn('Literal &lt;tag&gt;.', page)
             self.assertIn(f'rel="canonical" href="{site.SITE}{path}"', page)
