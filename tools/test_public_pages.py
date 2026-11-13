@@ -29,6 +29,13 @@ class PublicPagesTest(unittest.TestCase):
             self.assertIn('A. Rahman', directory)
             page = outputs[path[1:]]
             self.assertIn('Literal &lt;tag&gt;.', page)
+            self.assertIn('property="og:type" content="article"', page)
+            self.assertIn('property="og:url"', page)
+            self.assertIn('"@type": "Article"', page)
+            self.assertIn('"name": "A. Rahman"', page)
+            self.assertNotIn('"name": "C. Tan"', page)
+            self.assertIn('&lt;tag&gt;', page)
+
             self.assertIn(f'rel="canonical" href="{site.SITE}{path}"', page)
             self.assertIn(site.SITE + path, outputs['sitemap.xml'])
             credit = json.loads(outputs['authors/credits.json'])[item['reference']]
@@ -70,6 +77,9 @@ class PublicPagesTest(unittest.TestCase):
             self.assertEqual(outputs[profile.name].count(url), 1)
             self.assertIn('>Selected paper</a>', outputs[profile.name])
             self.assertIn('href="https://example.org/paper"', outputs[url[1:]])
+            self.assertIn('"@type": "ScholarlyArticle"', outputs[url[1:]])
+            self.assertIn('"sameAs": "https://example.org/paper"', outputs[url[1:]])
+
             site.save(outputs, root)
             self.assertEqual(outputs, site.make_outputs({'OG-P-1234': paper}, cfg, root))
 
