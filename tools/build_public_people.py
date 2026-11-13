@@ -100,19 +100,41 @@ def entry_paths(entries, root):
     return paths
 
 
-def shell(title, description, url, main, profile_name=None):
+def shell(title, description, url, main, profile_name=None, entry=None):
     schema = ''
     if profile_name:
         data = {'@context': 'https://schema.org', '@type': 'ProfilePage', 'url': SITE + url,
                 'mainEntity': {'@type': 'Person', '@id': SITE + url + '#person', 'name': profile_name}}
         payload = json.dumps(data, ensure_ascii=False).replace('<', r'\u003c')
         schema = f'<script type="application/ld+json">{payload}</script>'
+    if entry:
+        date = str(entry.get('publishedAt') or '')[:10]
+        names = [n.strip() for n in re.split(r'\s*[,;]\s*|\s+(?:and|&)\s+', entry.get('byline', ''), flags=re.I) if public_name(n)]
+        data = {'@context': 'https://schema.org',
+                '@type': 'ScholarlyArticle' if entry['kind'] == 'publications' else 'Article',
+                'headline': title, 'description': description, 'url': SITE + url,
+                'mainEntityOfPage': SITE + url,
+                'publisher': {'@type': 'Organization', 'name': 'Oil & Gas Community', 'url': SITE},
+                'author': [{'@type': 'Person', 'name': name} for name in names]}
+        if re.fullmatch(r'\d{4}-\d{2}-\d{2}', date):
+            data['datePublished'] = date
+        source = entry.get('source') or ''
+        if entry['kind'] == 'publications' and re.match(r'^https?://[^/\s]+', source, re.I):
+            data['sameAs'] = source
+        schema += '<script type="application/ld+json">' + json.dumps(data, ensure_ascii=False).replace('<', r'\u003c') + '</script>'
+    card_type = 'article' if entry else 'profile' if profile_name else 'website'
+    social = ('<meta property="og:type" content="' + card_type + '">'
+              '<meta property="og:title" content="' + escape(title, quote=True) + '">'
+              '<meta property="og:description" content="' + escape(description[:300], quote=True) + '">'
+              '<meta property="og:url" content="' + escape(SITE + url, quote=True) + '">'
+              '<meta property="og:image" content="' + SITE + '/logo.png">'
+              '<meta name="twitter:card" content="summary">')
     return f'''<!doctype html>
 <html lang="en">
 <head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>{escape(title)} | Oil &amp; Gas</title>
 <meta name="description" content="{escape(description)}"><link rel="canonical" href="{escape(SITE + url)}">
-<link rel="stylesheet" href="/browse.css"><link rel="stylesheet" href="/people.css">{schema}</head>
+<link rel="stylesheet" href="/browse.css"><link rel="stylesheet" href="/people.css">{social}{schema}</head>
 <body>{OWNER}
 <header class="wrap"><div class="brand"><a href="/"><img src="/logo.png" alt="Oil &amp; Gas home"></a></div>
 <nav class="nav people-nav" aria-label="Main navigation"><a href="/">Home</a>
@@ -204,7 +226,7 @@ def render_work(entry, credit, path):
         label = 'Read original paper' if paper else 'Read original source'
         main.append(f'<p><a href="{escape(source)}" rel="noopener noreferrer">{label}</a></p>')
     main.append('</article>')
-    return shell(entry['title'], summary or entry['title'], path, '\n'.join(main))
+    return shell(entry['title'], summary or entry['title'], path, '\n'.join(main), entry=entry)
 
 
 def make_outputs(entries, config, root=ROOT):
