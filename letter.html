@@ -28,7 +28,9 @@ h1{font-size:19pt;letter-spacing:.6px;text-align:center;margin:0 0 6mm}
 .letter .category{font-weight:700}
 .signoff{margin-top:8mm;display:flex;justify-content:space-between;align-items:flex-end;gap:10mm}
 .signoff p{margin:0 0 3mm;text-align:left}
-.editor-sign{font-style:italic;font-size:13pt;font-weight:bold;margin:7mm 0 1mm}
+.editor-sign{font:700 12pt Georgia,'Times New Roman',serif;margin:1.5mm 0 1mm}
+.editor-flourish{display:block;width:58mm;height:16mm;margin:2mm 0 0;color:#222827}
+.editor-flourish path{fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
 .seal{width:36mm;height:36mm;flex-shrink:0;border-radius:50%;background:radial-gradient(circle,#fff0bb 10%,#eecb77 58%,#b98833 100%);border:3px double #93651b;outline:3px solid #e2bc6d;text-align:center;display:flex;flex-direction:column;justify-content:center;align-items:center;font:700 9pt/1.2 Georgia,serif;box-shadow:0 2px 5px #0002}
 .seal .star{font-size:16pt;color:#94601c;margin-bottom:2mm}
 .footer{position:absolute;left:19mm;right:19mm;bottom:11mm}
@@ -62,7 +64,12 @@ h1{font-size:19pt;letter-spacing:.6px;text-align:center;margin:0 0 6mm}
  <p>We extend our congratulations to you and your fellow co-authors on this achievement.</p>
  <div class="signoff"><div>
  <p class="closing">Yours sincerely,</p>
- <div class="editor-sign">Editorial Team</div>
+ <!-- Stylized organizational editorial mark, not a person's handwritten signature. -->
+ <svg class="editor-flourish" viewBox="0 0 250 62" role="img" aria-label="Decorative Oil and Gas editorial signature flourish" xmlns="http://www.w3.org/2000/svg">
+ <path d="M9 45C26 38 36 20 31 12C24 -2 8 10 13 22C19 39 43 29 56 21C46 36 47 40 62 31C77 22 76 18 69 28C62 40 83 42 100 29C115 16 106 12 96 29C92 38 115 34 130 21C120 36 137 42 152 31C167 20 163 18 157 29C153 39 171 37 182 30C195 22 189 20 183 29C179 36 194 38 207 29" />
+ <path d="M37 50C87 54 136 50 185 46C205 45 225 44 242 40" />
+ </svg>
+ <div class="editor-sign">Oil &amp; Gas Editorial Team</div>
  <div>Oil &amp; Gas — Knowledge • Expertise • Exchange</div>
  </div><div class="seal" aria-label="Editor's editorial recognition"><div class="star">★</div><div id="seal-category">RESEARCH<br>RECOGNITION</div></div></div>
 </section>
