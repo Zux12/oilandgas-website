@@ -35,7 +35,15 @@ h1{font-size:19pt;letter-spacing:.6px;text-align:center;margin:0 0 6mm}
 .seal .star{font-size:16pt;color:#94601c;margin-bottom:2mm}
 .footer{position:absolute;left:19mm;right:19mm;bottom:11mm}
 .footer-line{height:1px;background:#b98e3e;margin-bottom:4mm}
-.footer-row{display:flex;justify-content:space-between;align-items:center;gap:9mm;font:9pt Arial,sans-serif}
+.footer-row{display:flex;justify-content:space-between;align-items:center;gap:6mm;font:9pt Arial,sans-serif}
+.qr-check{display:flex;gap:3mm;align-items:center;min-width:31mm;max-width:54mm}
+#qr-code{width:24mm;height:24mm;padding:1mm;flex:0 0 24mm;background:#fff;border:1px solid #c7baa1}
+#qr-code canvas,#qr-code img,#qr-code table{width:100%!important;height:100%!important;display:block}
+.qr-caption{font:7pt/1.25 Arial,sans-serif;color:#474c48}
+.qr-caption strong{display:block;font-size:7pt}
+.qr-caption a{color:#5d4a2c;overflow-wrap:anywhere}
+.footer .notice{max-width:48mm}
+@media print{#qr-code{break-inside:avoid;-webkit-print-color-adjust:exact;print-color-adjust:exact}}
 .footer .website{color:#db601e;font-weight:700}
 .footer .notice{font-size:7.5pt;color:#676767;max-width:75mm;text-align:right}
 .waves{position:absolute;bottom:0;left:0;width:100%;height:7mm;background:linear-gradient(172deg,transparent 0 32%,#f48b24 33% 43%,#d7b165 44% 51%,#282d2b 52%)}
@@ -73,9 +81,14 @@ h1{font-size:19pt;letter-spacing:.6px;text-align:center;margin:0 0 6mm}
  <div>Oil &amp; Gas — Knowledge • Expertise • Exchange</div>
  </div><div class="seal" aria-label="Editor's editorial recognition"><div class="star">★</div><div id="seal-category">RESEARCH<br>RECOGNITION</div></div></div>
 </section>
-<div class="footer"><div class="footer-line"></div><div class="footer-row"><div><strong>Official Recognition Record</strong><div class="website">oilandgas.eu.com</div></div><div class="notice">Verify this recognition using the unique reference above. Editorial recognition only; not an accredited academic award.</div></div></div>
+<div class="footer"><div class="footer-line"></div><div class="footer-row">
+<div><strong>Official Recognition Record</strong><div class="website">oilandgas.eu.com</div></div>
+<div class="qr-check"><div id="qr-code" role="img" aria-label="QR code linking to the official online verification status of this letter"></div>
+<div class="qr-caption"><strong>Scan to verify</strong><a id="qr-link" href="#" target="_blank" rel="noopener noreferrer">Official letter status</a></div></div>
+<div class="notice">Scan the QR to check the current validity of this individual recognition letter. Editorial recognition only; not an accredited academic award.</div></div></div>
 <div class="waves"></div>
 </main>
+<script src="/vendor/qrcode.min.js"></script>
 <script>
 'use strict';
 (async function(){
@@ -95,6 +108,25 @@ h1{font-size:19pt;letter-spacing:.6px;text-align:center;margin:0 0 6mm}
   put('author',record.author);put('title','“'+record.title+'”');
   put('category','“'+(record.label||record.category)+'”');put('seal-category',(record.label||'EDITORIAL RECOGNITION').toUpperCase());
   put('period',fmt(record.start)+' – '+fmt(record.end));
+  // QR embeds the PUBLIC immutable letter ID only, never a private visit token.
+  // The official verification page checks live backend status at scan time.
+  const verification=new URL('verify-letter.html',location.origin);
+  verification.searchParams.set('id',record.id);
+  const qrLink=document.getElementById('qr-link');qrLink.href=verification.href;
+  try{
+   if(typeof QRCode!=='function')throw Error('QR generator unavailable');
+   new QRCode(document.getElementById('qr-code'),{
+    text:verification.href,width:180,height:180,
+    colorDark:'#19211e',colorLight:'#ffffff',
+    correctLevel:QRCode.CorrectLevel.M
+   });
+  }catch(err){
+   // Never allow printing a letter that appears to include a working QR when
+   // QR generation failed; the official text reference remains available.
+   document.getElementById('qr-code').textContent='QR unavailable';
+   state.textContent='The letter record is valid, but its QR could not be created. Please refresh before printing.';
+   return;
+  }
   document.getElementById('paper').hidden=false;
   document.getElementById('print').disabled=false;
   document.getElementById('print').onclick=()=>window.print();
