@@ -1,0 +1,20 @@
+
+/* Weekly Research Recognition: homepage lead feature, independent of editorial picks */
+.research-recognition-feature{margin:30px 0 36px;padding:25px 0 28px;border-top:3px solid #252b29;border-bottom:1px solid var(--line)}
+.recognition-head{display:flex;align-items:end;justify-content:space-between;gap:25px;margin-bottom:22px}
+.recognition-head h2{font:normal clamp(32px,3.6vw,47px)/1.08 Georgia,serif;margin:8px 0 9px}
+.recognition-head p:not(.eyebrow){font-size:14px;line-height:1.65;color:var(--muted);max-width:690px}
+.recognition-head .primary{white-space:nowrap}
+.recognition-feature-grid{display:grid;grid-template-columns:1.65fr 1fr;gap:16px}
+.recognition-card{min-width:0;background:#fff;border:1px solid #dedbd3;padding:23px 24px;display:flex;flex-direction:column;justify-content:start}
+.recognition-main{grid-row:span 2;background:#222c29;color:#f8f6ef;border-color:#222c29;min-height:275px;padding:30px}
+.recognition-category{font-size:11px;letter-spacing:1.4px;font-weight:700;color:#ab762f;margin:0 0 14px}
+.recognition-main .recognition-category{color:#e4bb74}
+.recognition-card h3{font:normal 23px/1.2 Georgia,serif;margin:0 0 11px}
+.recognition-main h3{font-size:clamp(27px,3vw,38px)}
+.recognition-card p:not(.recognition-category){line-height:1.55;font-size:13px;color:#5d625c;margin:0 0 12px}
+.recognition-main p:not(.recognition-category){color:#d8dfd8;font-size:14px}
+.recognition-link{display:inline-block;margin-top:auto;color:#a94d19;font-size:13px;font-weight:700;padding-top:14px}
+.recognition-main .recognition-link{color:#ebbd74}
+.recognition-footnote{color:#696c68;font-size:11px;line-height:1.5;margin:12px 0 0}
+@media(max-width:760px){.recognition-head{align-items:start;flex-direction:column}.recognition-feature-grid{grid-template-columns:1fr}.recognition-main{grid-row:auto;min-height:220px;padding:24px}}
