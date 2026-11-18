@@ -1,0 +1,28 @@
+name: Recognition QR and A4 letter checks
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'letter.html'
+      - 'verify-letter.html'
+      - 'vendor/qrcode.min.js'
+      - 'tests/recognition-qr-layout.test.js'
+      - '.github/workflows/recognition-letter-tests.yml'
+  pull_request:
+    paths:
+      - 'letter.html'
+      - 'verify-letter.html'
+      - 'vendor/qrcode.min.js'
+      - 'tests/recognition-qr-layout.test.js'
+      - '.github/workflows/recognition-letter-tests.yml'
+jobs:
+  qr-letter-checks:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Run QR and A4 markup regression tests
+        run: node --test tests/recognition-qr-layout.test.js
