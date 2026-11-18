@@ -21,7 +21,24 @@
     <a class="primary" href="contribute.html">Submit your work ↗</a>
   </nav>
 </header>
-<main class="wrap"><h1 class="sr-only">Oil &amp; Gas — Knowledge, Expertise, Exchange</h1><noscript><p>Enable JavaScript to browse published entries and member totals. You can still use the contribution and contact links.</p></noscript><!-- Weekly edition: start -->
+<main class="wrap"><h1 class="sr-only">Oil &amp; Gas — Knowledge, Expertise, Exchange</h1><noscript><p>Enable JavaScript to browse published entries and member totals. You can still use the contribution and contact links.</p></noscript><section class="research-recognition-feature" id="research-recognition" aria-labelledby="recognition-title">
+<div class="recognition-head">
+  <div><p class="eyebrow">FEATURED RESEARCH · WEEKLY EDITORIAL DISTINCTIONS</p>
+  <h2 id="recognition-title">Weekly Research Recognition</h2>
+  <p>Recognizing published oil and gas research through transparent, rules-based editorial assessment. New winners are considered every week; each research paper may receive recognition only once.</p></div>
+  <a class="primary" href="recognition.html">Explore research recognition ↗</a>
+</div>
+<div class="recognition-feature-grid" id="recognition-home-list" aria-live="polite">
+ <article class="recognition-card recognition-main">
+  <p class="recognition-category">RESEARCH EDITOR'S PICK OF THE WEEK</p><h3>Recognition programme in controlled testing</h3>
+  <p>Qualified research will be featured here after the programme is activated.</p>
+ </article>
+ <article class="recognition-card"><p class="recognition-category">INDUSTRY IMPACT SPOTLIGHT</p><h3>Awaiting eligible research</h3></article>
+ <article class="recognition-card"><p class="recognition-category">EMERGING RESEARCH SPOTLIGHT</p><h3>Awaiting eligible research</h3></article>
+</div>
+<p class="recognition-footnote">Editorial research recognition is not independent scientific peer review or academic accreditation. No author recognition emails are being sent during testing.</p>
+</section>
+<!-- Weekly edition: start -->
 <section class="weekly-edition" aria-label="Weekly industry brief" id="weekly-brief">
 <div class="weekly-dateline"><strong>Weekly industry brief</strong>
 <time datetime="2026-11-16">16 November 2026</time></div>
@@ -168,7 +185,7 @@
   </details>
 </section>
 <section class="community" id="membership"><div><span class="eyebrow">The Oil &amp; Gas community</span><h2>Shared knowledge.<br>A community of experience.</h2><p>A place for engineers, researchers, industry professionals and students to exchange ideas and bring practical experience into the conversation. Join our free membership community.</p><div class="expertise" aria-label="Areas of interest"><span>Measurement</span><span>Instrumentation &amp; Control</span><span>Reliability</span><span>Safety</span><span>Digitalisation</span><span>Energy transition</span></div><a class="primary" href="membership.html">Explore membership ↗</a></div><aside class="member-stat"><span class="eyebrow">Our membership</span><strong data-member-count>Loading membership…</strong><p data-member-note>Checking the current member total.</p><span class="meta">Free to join · Applications reviewed</span></aside></section>
-<section class="join" id="contribute"><div><span class="eyebrow">Add your perspective</span><h2>Experience is valuable.<br>Sharing it makes a difference.</h2><p>Contribute a technical article, share a publication or bring a field lesson to the conversation. Submissions are reviewed before publication.</p></div><div class="join-actions"><a class="primary orange" href="contribute.html">Contribute an article ↗</a><a class="secondary" href="share-publication.html">Share a publication ↗</a></div></section><section class="community" id="research-recognition" aria-labelledby="recognition-title"><div><p class="eyebrow">New research recognition programme</p><h2 id="recognition-title" style="font:normal 34px Georgia,serif;margin:7px 0 15px">Weekly Research Spotlight</h2><p>Three noteworthy research publications are selected for weekly editorial recognition. Browse the current selections and permanent recognition archive.</p><div id="recognition-home-list" style="margin-top:18px"><p>Programme in controlled testing — selections will appear after activation.</p></div><a class="primary" href="recognition.html" style="display:inline-block;margin-top:15px">Explore weekly recognition ↗</a></div><div style="border:1px solid var(--line);padding:24px;align-self:start"><p class="eyebrow">Recognition benefits</p><p style="font:normal 21px Georgia,serif">Seven-day exposure. Permanent recognition.</p><p>Individual recognition for verified co-authors, a searchable archive and planned digital certificates. Author email notifications remain disabled while testing continues.</p></div></section>
+<section class="join" id="contribute"><div><span class="eyebrow">Add your perspective</span><h2>Experience is valuable.<br>Sharing it makes a difference.</h2><p>Contribute a technical article, share a publication or bring a field lesson to the conversation. Submissions are reviewed before publication.</p></div><div class="join-actions"><a class="primary orange" href="contribute.html">Contribute an article ↗</a><a class="secondary" href="share-publication.html">Share a publication ↗</a></div></section>
 </main>
 <footer><div class="wrap"><span class="footer-brand">oil & gas<i>.</i></span><span>Knowledge • Expertise • Exchange</span><a href="recognition.html">Weekly Recognition</a><a href="https://mterm2026-559f9bf571b5.herokuapp.com/api/oilandgas/editor/desk.html">Editor’s Desk</a><span>Independent knowledge platform</span></div></footer>
-<script>(async function(){const el=document.getElementById('recognition-home-list');if(!el)return;try{const response=await fetch('https://mterm2026-559f9bf571b5.herokuapp.com/api/oilandgas/recognition/current');if(!response.ok)return;const data=await response.json();if(!data.items?.length)return;el.replaceChildren();for(const item of data.items){const p=document.createElement('p');const a=document.createElement('a');a.href='recognition.html';a.textContent=(item.label||'Weekly Spotlight')+' · '+(item.title||'Research publication');p.append(a);el.append(p)}}catch{}})();</script><script src="membership-count.js"></script><script src="entry-links.js"></script><script src="content.js?v=weekly-picks"></script></body></html>
+<script defer src="recognition-feature.js?v=20261118"></script><script src="membership-count.js"></script><script src="entry-links.js"></script><script src="content.js?v=weekly-picks"></script></body></html>
