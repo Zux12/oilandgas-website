@@ -27,14 +27,14 @@ footer{text-align:center;color:#747771;font-size:12px;padding:20px;border-top:1p
 </style></head><body>
 <header><div><a class="brand" href="/">oil &amp; gas<span>.</span></a><a href="recognition.html">Research Recognition Archive</a></div></header>
 <main><p class="kicker">OFFICIAL LETTER VERIFICATION</p><h1>Verify a Letter of Recognition</h1>
-<p class="description">This page checks the current status of an individual Oil &amp; Gas editorial research recognition letter against our official records. A printed letter or saved PDF can be checked by scanning its QR code.</p>
+<p class="description">This page permanently confirms when a researcher received an Oil &amp; Gas editorial distinction, which paper was recognized and in which category. The recognition remains in the historical register after its featured week ends.</p>
 <div class="panel"><div id="verification-status" class="result wait" role="status">Checking the official recognition register…</div>
 <div id="verified-details" hidden><dl><dt>Letter reference</dt><dd id="ref"></dd>
 <dt>Recipient</dt><dd id="author"></dd><dt>Research publication</dt><dd id="title"></dd>
-<dt>Recognition category</dt><dd id="category"></dd><dt>Recognition period</dt><dd id="period"></dd>
+<dt>Recognition category</dt><dd id="category"></dd><dt>Date recognized</dt><dd id="recognized-date"></dd><dt>Featured week</dt><dd id="period"></dd>
 <dt>Issued on</dt><dd id="issued"></dd><dt>Parent recognition</dt><dd id="recognition"></dd>
-</dl><a class="action" id="open-letter" href="#">View Letter of Recognition</a></div>
-<p class="notice" id="verification-note">A QR code alone does not establish authenticity. The current status must be confirmed by this official verification service.</p></div></main>
+</dl><p id="integrity-note" class="notice" hidden></p><a class="action" id="open-letter" href="#">View Original Letter of Recognition</a></div>
+<p class="notice" id="verification-note">The QR references a permanent historical entry. Any subsequent integrity notice is shown separately without erasing the original recognition.</p></div></main>
 <footer>Oil &amp; Gas — Knowledge • Expertise • Exchange · Independent editorial research recognition</footer>
 <script>
 'use strict';
@@ -54,15 +54,24 @@ footer{text-align:center;color:#747771;font-size:12px;padding:20px;border-top:1p
   if(data.id!==id)throw Error('Reference mismatch');
   details.hidden=false;put('ref',data.id);put('author',data.author);put('title',data.title);
   put('category',data.label||data.category);put('period',fmt(data.start)+' – '+fmt(data.end));
-  put('issued',fmt(data.issuedAt));put('recognition',data.recognitionId);
+  put('issued',fmt(data.issuedAt));put('recognized-date',fmt(data.originallyRecognizedAt||data.start));put('recognition',data.recognitionId);
   const action=document.getElementById('open-letter');
-  if(data.status==='valid'){state.className='result valid';state.textContent='VALID — This letter is currently recorded as an official Oil & Gas research recognition.';
+  if(data.status==='recognized'||data.status==='recognized-with-notice'){
+   state.className='result valid';
+   state.textContent='RECOGNITION CONFIRMED — '+(data.author||'This researcher')+
+    ' was recognized on '+fmt(data.originallyRecognizedAt||data.start)+
+    ' for the research publication shown below.';
    action.href='letter.html?id='+encodeURIComponent(id);
+   if(data.integrityNotice){
+    const notice=document.getElementById('integrity-note');
+    notice.hidden=false;notice.className='notice';
+    notice.textContent='Subsequent editorial/integrity notice ('+fmt(data.integrityNotice.recordedAt)+'): '+
+     (data.integrityNotice.reason||'A later notice is recorded.')+
+     ' This does not erase the original dated recognition.';
+   }
   }else{
-   state.className='result invalid';state.textContent=data.status==='withdrawn'?
-    'RECOGNITION WITHDRAWN — This letter is no longer valid.':
-    'INVALID — This letter is not currently recognized as valid.';
-   action.hidden=true;note.textContent='Historical details are retained for transparency, but this letter must not be represented as a valid current recognition.';
+   state.className='result invalid';state.textContent='NOT VERIFIED — No valid historical recognition record can be confirmed.';
+   action.hidden=true;
   }
  }catch(err){
   state.className='result wait';state.textContent='VERIFICATION UNAVAILABLE — We cannot confirm this letter at present.';
