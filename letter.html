@@ -85,7 +85,7 @@ h1{font-size:19pt;letter-spacing:.6px;text-align:center;margin:0 0 6mm}
 <div><strong>Official Recognition Record</strong><div class="website">oilandgas.eu.com</div></div>
 <div class="qr-check"><div id="qr-code" role="img" aria-label="QR code linking to the official online verification status of this letter"></div>
 <div class="qr-caption"><strong>Scan to verify</strong><a id="qr-link" href="#" target="_blank" rel="noopener noreferrer">Official letter status</a></div></div>
-<div class="notice">Scan the QR to check the current validity of this individual recognition letter. Editorial recognition only; not an accredited academic award.</div></div></div>
+<div class="notice">Scan to confirm the original recognition date, recipient and paper. Editorial distinction, not academic accreditation.</div></div></div>
 <div class="waves"></div>
 </main>
 <script src="/vendor/qrcode.min.js"></script>
@@ -101,7 +101,10 @@ h1{font-size:19pt;letter-spacing:.6px;text-align:center;margin:0 0 6mm}
   const url='https://mterm2026-559f9bf571b5.herokuapp.com/api/oilandgas/recognition/';
   const response=await fetch(url+'verify/'+encodeURIComponent(id),{cache:'no-store'});
   if(!response.ok)throw Error('Not found');
-  const record=await response.json();if(record.status!=='valid'){state.textContent='This recognition has been withdrawn or is no longer valid.';return}
+  const record=await response.json();
+  if(!['recognized','recognized-with-notice'].includes(record.status)){
+   state.textContent='No verified historical recognition is available for this reference.';return;
+  }
   const fmt=d=>new Intl.DateTimeFormat('en-GB',{day:'numeric',month:'long',year:'numeric',timeZone:'Asia/Kuala_Lumpur'}).format(new Date(d));
   const put=(key,value)=>document.getElementById(key).textContent=value||'';
   put('reference',record.id);put('issue-date',fmt(record.issuedAt));
@@ -130,7 +133,9 @@ h1{font-size:19pt;letter-spacing:.6px;text-align:center;margin:0 0 6mm}
   document.getElementById('paper').hidden=false;
   document.getElementById('print').disabled=false;
   document.getElementById('print').onclick=()=>window.print();
-  state.textContent='Official recognition letter verified. Printable on A4 portrait.';
+  state.textContent=record.integrityNotice?
+   'Original dated recognition confirmed. A subsequent editorial/integrity notice is recorded on the official QR verification page.':
+   'Historical research recognition confirmed. Printable on A4 portrait.';
   // Attribution is possible only with a private, preissued tracked link; normal
   // public visits are deliberately not assigned to an author or email recipient.
   if(/^[a-f0-9]{64}$/i.test(token)){
