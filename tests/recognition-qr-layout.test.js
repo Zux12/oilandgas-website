@@ -46,3 +46,15 @@ test('website recognition code has valid parseable inline JavaScript',()=>{
   }
  }
 });
+
+test('specimen A4 letter and demo QR cannot masquerade as an official award',()=>{
+ const demo=fs.readFileSync(path.join(root,'letter-demo.html'),'utf8');
+ const verification=fs.readFileSync(path.join(root,'verify-letter-demo.html'),'utf8');
+ assert.match(demo,/@page\s*\{\s*size:A4 portrait/);
+ assert.match(demo,/SPECIMEN — NOT AN ISSUED AWARD/);
+ assert.match(demo,/verify-letter-demo\.html/);
+ assert.doesNotMatch(demo,/recognition\/verify\//);
+ assert.match(verification,/NO REAL RECOGNITION ISSUED/);
+ assert.match(verification,/DEMO QR SCAN SUCCESSFUL/);
+ assert.doesNotMatch(verification,/recognition\/verify\//);
+});
