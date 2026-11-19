@@ -5,6 +5,8 @@ on:
     paths:
       - 'letter.html'
       - 'verify-letter.html'
+      - 'letter-demo.html'
+      - 'verify-letter-demo.html'
       - 'vendor/qrcode.min.js'
       - 'tests/recognition-qr-layout.test.js'
       - '.github/workflows/recognition-letter-tests.yml'
@@ -12,6 +14,8 @@ on:
     paths:
       - 'letter.html'
       - 'verify-letter.html'
+      - 'letter-demo.html'
+      - 'verify-letter-demo.html'
       - 'vendor/qrcode.min.js'
       - 'tests/recognition-qr-layout.test.js'
       - '.github/workflows/recognition-letter-tests.yml'
