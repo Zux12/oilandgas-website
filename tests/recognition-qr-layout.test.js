@@ -58,3 +58,21 @@ test('specimen A4 letter and demo QR cannot masquerade as an official award',()=
  assert.match(verification,/DEMO QR SCAN SUCCESSFUL/);
  assert.doesNotMatch(verification,/recognition\/verify\//);
 });
+
+test('public archive and detailed record pages contain no archive data loaders',()=>{
+ const archive=fs.readFileSync(path.join(root,'recognition.html'),'utf8');
+ const detail=fs.readFileSync(path.join(root,'recognition-detail.html'),'utf8');
+ assert.match(archive,/Private Recognition Archive/);
+ assert.match(detail,/Private Recognition Record/);
+ assert.doesNotMatch(archive,/recognition\/archive\?/);
+ assert.doesNotMatch(detail,/recognition\/record\//);
+ assert.doesNotMatch(archive,/Loading archive/);
+});
+test('public homepage and individual letters do not link to historical recognition archive',()=>{
+ const home=fs.readFileSync(path.join(root,'index.html'),'utf8');
+ const featured=fs.readFileSync(path.join(root,'recognition-feature.js'),'utf8');
+ assert.doesNotMatch(home,/href="recognition\.html"/);
+ assert.doesNotMatch(featured,/recognition-detail\.html/);
+ assert.doesNotMatch(letter,/href="recognition\.html"/);
+ assert.doesNotMatch(verify,/href="recognition\.html"/);
+});
