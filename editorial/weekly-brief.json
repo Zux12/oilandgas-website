@@ -1,13 +1,13 @@
 {
-  "edition": "2026-11-16",
+  "edition": "2026-11-23",
   "region": "Sarawak, Malaysia",
-  "headline": "Salbiah starts gas production; Fatimah gets investment go-ahead",
-  "news": "DIALOG announced on 11 November 2026 that the Salbiah gas field began commercial production on 27 October, following completion of development work. The company also confirmed a final investment decision for Fatimah, the second development under the Baram Junior Cluster contract offshore Sarawak, involving an additional US$211 million. Fatimah is to be developed; this announcement does not report its start-up.",
-  "engineering": "Practical engineering question: as a gas development moves into operation, does the integrity plan explain which components are inspected and which risk assumptions still need verification? The selections alongside explore inspection coverage and offshore risk assessment. This is an editorial question, not a finding about either DIALOG project.",
+  "headline": "Rosmari-Marjoram brings new gas supply onstream",
+  "news": "On 17 November 2026, Shell reported that Sarawak Shell Berhad had started production from the Rosmari and Marjoram fields, 220 km offshore Sarawak. The development includes a 207 km pipeline to a new Bintulu gas plant, where hydrogen sulphide is removed before gas is supplied to the PETRONAS LNG Complex. This is a reported production start; the release does not state an achieved daily production rate.",
+  "engineering": "Practical engineering question: for a long sour-gas route linking offshore facilities to an onshore plant, how are inspection coverage, corrosion-monitoring locations and leak-response responsibilities justified across the interfaces? The accompanying readings offer general integrity and risk-assessment lessons; they do not assess Rosmari-Marjoram.",
   "sources": [
     {
-      "label": "DIALOG announcement · 11 November 2026",
-      "url": "https://www.dialogasia.com/news/baram-junior-cluster-small-field-asset-production-sharing-contract-bjc-sfa-psc-2026"
+      "label": "Shell production-start announcement · 17 November 2026",
+      "url": "https://www.shell.com/news-and-insights/newsroom/news-and-media-releases/2026/shell-delivers-first-gas-from-the-rosmari-marjoram-development-in-malaysia.html"
     }
   ],
   "field": {
