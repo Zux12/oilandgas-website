@@ -13,7 +13,7 @@
   const r=await fetch(api,{signal:AbortSignal.timeout(10000)});
   if(!r.ok)throw Error('Unavailable');
   const json=await r.json();
-  if(!json.programmeActive && !(json.items||[]).length)return; // Keep honest testing placeholders.
+  if(!json.programmeActive && !(json.items||[]).length)return;
   const rows=new Map((json.items||[]).map(row=>[row.category,row]));
   root.replaceChildren();
   for(const [key,label]of categories){
@@ -31,6 +31,6 @@
    root.append(card);
   }
  }catch{
-  // Keep truthful, usable controlled-testing placeholders if the API is unavailable.
+  // Keep the public introduction when the current selection cannot be loaded.
  }
 })();

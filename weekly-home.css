@@ -37,6 +37,13 @@
   .masthead .nav .primary { margin-inline-start: 0; }
 }
 
+@media (max-width: 850px) {
+  .publications { grid-template-columns: minmax(0, 1fr); }
+  .paper { grid-template-columns: 32px minmax(0, 1fr) 24px; gap: 12px; }
+  .paper > div, .cards > .card { overflow-wrap: anywhere; }
+  .masthead .search { font-size: 16px; }
+}
+
 .weekly-edition { margin: 30px 0 34px; }
 .weekly-dateline { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; padding-bottom: 10px; border-bottom: 2px solid var(--ink); }
 .weekly-dateline strong { font: 600 14px Arial, sans-serif; }

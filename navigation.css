@@ -45,3 +45,24 @@
 @media (prefers-reduced-motion: reduce) {
   html:root { scroll-behavior: auto; }
 }
+
+@media (max-width: 850px), (pointer: coarse) {
+  header .nav {
+    flex-wrap: wrap;
+    row-gap: 2px;
+    column-gap: clamp(8px, 2.8vw, 16px);
+    padding-block: 4px;
+  }
+
+  header .nav > a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 44px;
+    min-width: 44px;
+  }
+
+  header .nav > a:not(.primary)::after {
+    bottom: calc(50% - 0.8em);
+  }
+}

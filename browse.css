@@ -11,3 +11,5 @@
 .catalogue-details a { color: #95400e; text-decoration: underline; text-underline-offset: 3px; }
 .clear-filters { align-self: end; min-height: 42px; margin-bottom: 0; }
 .clear-filters[hidden] { display: none !important; }
+
+[data-browse] .card { min-width: 0; overflow-wrap: anywhere; }
