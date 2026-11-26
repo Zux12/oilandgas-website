@@ -1,0 +1,18 @@
+@media screen and (max-width: 850px) {
+  main :where(p:not([class]), p.article-text, p.bio, p.description, p.notice,
+              p.coverage-intro, p.recognition-footnote, p.weekly-engineering, figcaption) {
+    text-align: justify;
+    text-align-last: start;
+    -webkit-hyphens: auto;
+    hyphens: auto;
+    overflow-wrap: anywhere;
+  }
+
+  /* Status messages and author credits also use paragraph markup. */
+  main :where(p[role="status"], p[data-member-note], p[data-byline], p[data-shared],
+              .author section > article > p, .entry > .publication-actions + p) {
+    text-align: start;
+    -webkit-hyphens: manual;
+    hyphens: manual;
+  }
+}
