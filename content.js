@@ -211,6 +211,7 @@ search.addEventListener('input', () => {
 }, 500);
 });
 if (browseMode) {
+  document.querySelector(`.nav a[href="browse.html?kind=${kind}"]`)?.setAttribute('aria-current', 'page');
   search.value = initial.get('q') || '';
   const select = document.getElementById('topic');
   for (const topic of ['Sensors', collectionName]) {
@@ -249,6 +250,16 @@ if (browseMode) {
     };
   }
 } else {
+  const sectionLinks = document.querySelectorAll('.masthead .nav a[href^="#"]');
+  function markSelectedSection() {
+    for (const link of sectionLinks) {
+      if (link.hash === location.hash) link.setAttribute('aria-current', 'location');
+      else link.removeAttribute('aria-current');
+    }
+  }
+  markSelectedSection();
+  window.addEventListener('hashchange', markSelectedSection);
+
   const lastTopic = Array.from(document.querySelectorAll('[data-filter]')).pop();
   if (lastTopic) {
     const button = node('button', collectionName, 'chip');

@@ -6,6 +6,7 @@
   const empty = document.getElementById('author-empty');
   if (!input || !directory || !count || !empty) return;
 
+  document.querySelector('.people-nav a[href="/authors/"]')?.setAttribute('aria-current', 'page');
   const entries = [...directory.querySelectorAll('li')];
   const normalize = value => String(value || '').normalize('NFKD')
     .replace(/[\u0300-\u036f]/g, '').toLocaleLowerCase().replace(/\s+/g, ' ').trim();

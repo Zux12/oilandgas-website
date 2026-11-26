@@ -1,0 +1,47 @@
+/* Main menu links in the masthead and on interior pages. */
+.nav > a:not(.primary) {
+  position: relative;
+  --nav-line-offset: -4px;
+  --nav-line-scale: 0;
+  color: var(--nav-link-color, inherit);
+}
+
+.masthead .nav > a:not(.primary) {
+  --nav-line-offset: 1px;
+}
+
+.nav > a:not(.primary)::after {
+  content: "";
+  position: absolute;
+  inset-inline: 0;
+  bottom: var(--nav-line-offset);
+  border-bottom: 2px solid var(--orange);
+  transform: scaleX(var(--nav-line-scale));
+  transform-origin: left;
+  pointer-events: none;
+}
+
+.nav > a:not(.primary):is(:focus-visible, :active, [aria-current="page"], [aria-current="location"]) {
+  --nav-link-color: #943b0b;
+  --nav-line-scale: 1;
+}
+
+@media (hover: hover) {
+  .nav > a:not(.primary):hover {
+    --nav-link-color: #943b0b;
+    --nav-line-scale: 1;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .nav > a:not(.primary)::after {
+    transition: transform 160ms ease-out;
+  }
+  .nav > a:not(.primary):active::after {
+    transition: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html:root { scroll-behavior: auto; }
+}
